@@ -1,0 +1,856 @@
+[
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_reinvent_champ",
+    "TrackDescription": "Get ready to rev your engines on the official 2022 re:Invent Championship track! This is an intensely difficult track (35.87 m) featuring a technical chicane section that will challenge even the most skilled developers.",
+    "TrackDifficulty": 10,
+    "TrackLength": 33.27,
+    "TrackName": "2022 re:Invent Championship",
+    "TrackReleaseTime": 1664557200000,
+    "TrackUsageCount": 256,
+    "TrackWidth": 0.95
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_october_pro",
+    "TrackDescription": "The Jennens Super Speedway (62.07 m) is named in honor of the first ever racing family and 2021 re:Invent finalists James 'JJ' and Timothy 'Flatearth' Jennens. Pros this month will need to navigate the technical section without off tracks, and apply top speeds on the drag strips to climb the leaderboard.",
+    "TrackDifficulty": 40,
+    "TrackLength": 62.08,
+    "TrackName": "Jennens Super Speedway",
+    "TrackReleaseTime": 1664557200000,
+    "TrackUsageCount": 38,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_october_open",
+    "TrackDescription": "The Jennens Family Speedway (49.56 m) is named in honor of the first ever racing family and 2021 re:Invent finalists James 'JJ' and Timothy 'Flatearth' Jennens. This track features two blistering fast drag strips right into unforgiving 90 degree sweeping turns that can spin out even the most skilled developers.",
+    "TrackDifficulty": 40,
+    "TrackLength": 49.57,
+    "TrackName": "Jennens Family Speedway",
+    "TrackReleaseTime": 1664557200000,
+    "TrackUsageCount": 11,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_september_pro",
+    "TrackDescription": "Are you ready rip on the Roger Super Raceway? The Roger Super Raceway was inspired by a real-life track in the home town of AWS Community Member, Roger Logan. At 60.17m this track features no shortage of lightning fast drag strips and unforgiving technical sections that will put even the most skilled developer to the test.",
+    "TrackDifficulty": 70,
+    "TrackLength": 60.18,
+    "TrackName": "Roger Super Raceway",
+    "TrackReleaseTime": 1661990400000,
+    "TrackUsageCount": 134,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_september_open",
+    "TrackDescription": "Get ready rip on the Roger Ring! This track at 45.3m honoring community member, Roger Logan, features a lightning fast drag strip straight into back-to-back 90 degree turns will undoubtedly send developers careening into the green. Do you have the skills to keep all four wheels on track? Submit your model today and find out!",
+    "TrackDifficulty": 40,
+    "TrackLength": 45.3,
+    "TrackName": "Roger Ring",
+    "TrackReleaseTime": 1661990400000,
+    "TrackUsageCount": 32,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_august_pro",
+    "TrackDescription": "Time to put your developer skills to the test on the Jochem Highway named after AWS Community member and re:Invent 2021 finalist, Jochem Lugtenburg. This incredibly difficult track features no shortage of technical sections from double 90 degree turns to unforgiving hairpin sections. The Jochem Highway will surely deliver plenty of off tracks to even the most skilled developers.",
+    "TrackDifficulty": 68,
+    "TrackLength": 63.88,
+    "TrackName": "Jochem Highway",
+    "TrackReleaseTime": 1659312000000,
+    "TrackUsageCount": 52,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_august_open",
+    "TrackDescription": "Put your developer skills to the test on the Jochem Turnpike named after AWS Machine learning Community member and re:Invent 2021 finalist, Jochem Lugtenburg. This track features no shortage of zigzags and tricky hairpin turns. Does your model have what it takes to make it around the broad, sweeping turns and climb the leaderboard? Get racing today and find out!",
+    "TrackDifficulty": 30,
+    "TrackLength": 43.31,
+    "TrackName": "Jochem Turnpike",
+    "TrackReleaseTime": 1659312000000,
+    "TrackUsageCount": 24,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_july_pro",
+    "TrackDescription": "Named after the 2021 AWS DeepRacer finalist Darren 'DBro' Broderick, the DBro Super Raceway features 2 lightning fast dragstrips and an unforgiving technical section of hairpin turns and cutbacks. Do you have what it takes to advance or will get caught doing DOH-nuts in the green?",
+    "TrackDifficulty": 70,
+    "TrackLength": 57.89,
+    "TrackName": "DBro Super Raceway",
+    "TrackReleaseTime": 1656633600000,
+    "TrackUsageCount": 115,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_july_open",
+    "TrackDescription": "Get ready to burn rubber on the DBro Raceway named after 2021 AWS DeepRacer finalist Darren 'DBro' Broderick. This track features 3 lightning fast drag strips into sweeping turns. Do you have what it takes to advance or will get caught doing DOH-nuts in the green?",
+    "TrackDifficulty": 25,
+    "TrackLength": 40.2,
+    "TrackName": "DBro Raceway",
+    "TrackReleaseTime": 1656633600000,
+    "TrackUsageCount": 30,
+    "TrackWidth": 106.88
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_june_pro",
+    "TrackDescription": "The BreadCentric Speedway is named after AWS DeepRacer Community Hero, Tomasz Ptak AKA 'BreadCentric'. This track adds a deceivingly technical section with an unforgiving hairpin turn separating the varying dragstrips. The BreadCentric Speedway will test the skills of even the most experienced developer.",
+    "TrackDifficulty": 10,
+    "TrackLength": 58.61,
+    "TrackName": "BreadCentric Speedway",
+    "TrackReleaseTime": 1654041600000,
+    "TrackUsageCount": 130,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_june_open",
+    "TrackDescription": "The BreadCentric Loop is named after AWS DeepRacer Community Hero, Tomasz Ptak AKA 'BreadCentric'. This track challenges racers with lightning fast drag strips and variable sweeping turns. While the BreadCentric Loop seems simple expect to see no shortage of off tracks.",
+    "TrackDifficulty": 10,
+    "TrackLength": 41.28,
+    "TrackName": "BreadCentric Loop",
+    "TrackReleaseTime": 1654041600000,
+    "TrackUsageCount": 32,
+    "TrackWidth": 106.88
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_may_open",
+    "TrackDescription": "The Ross Raceway was named in honor of the 2021 AWS DeepRacer 3rd place Champion, Ross Williams. Expect to see racers put the pedal to the metal on the 3x dragstrips featured on the Ross Raceway, but there will be no shortage of off tracks as they navigate the various sweeping turns.",
+    "TrackDifficulty": 40,
+    "TrackLength": 46.16,
+    "TrackName": "Ross Raceway",
+    "TrackReleaseTime": 1651363200000,
+    "TrackUsageCount": 103,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_may_pro",
+    "TrackDescription": "The Ross Super Raceway was named in honor of the 2021 AWS DeepRacer 3rd place Champion, Ross Williams. Pro racers will be put to the test in navigating an unforgiving technical section full of variable angle turns, along with 2x lightning fast straightaways.",
+    "TrackDifficulty": 75,
+    "TrackLength": 63.92,
+    "TrackName": "Ross Super Speedway",
+    "TrackReleaseTime": 1651363200000,
+    "TrackUsageCount": 58,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_april_pro",
+    "TrackDescription": "The Ace Super Speedway was named in honor of the 2021 AWS DeepRacer 2nd place Champion, Yousuf Nizam. Featuring full throttle straightaways and unforgiving hairpin turns the Ace Super Speedway will surely require an ace in the hole to come away with a win.",
+    "TrackDifficulty": 68,
+    "TrackLength": 67.46,
+    "TrackName": "Ace Super Speedway",
+    "TrackReleaseTime": 1648771200000,
+    "TrackUsageCount": 87,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_april_open",
+    "TrackDescription": "The Ace Speedway was named in honor of the 2021 AWS DeepRacer 2nd place Champion, Yousuf Nizam. Expect many developers ace this track with lightning fast race times featuring a single sprint dragstrip into a broad sweeping turns.",
+    "TrackDifficulty": 35,
+    "TrackLength": 50.3,
+    "TrackName": "Ace Speedway",
+    "TrackReleaseTime": 1648771200000,
+    "TrackUsageCount": 329,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_march_open",
+    "TrackDescription": "Named in honor of the 2021 DeepRacer Championship Cup winner, Sairam Naragoni, the Rogue Circuit is a short track (48.06m) features a variety of moderate curves and sweeping turns. \n",
+    "TrackDifficulty": 60,
+    "TrackLength": 48.07,
+    "TrackName": "Rogue Circuit",
+    "TrackReleaseTime": 1646092800000,
+    "TrackUsageCount": 239,
+    "TrackWidth": 106.88
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_march_pro",
+    "TrackDescription": "Named in honor of the 2021 DeepRacer Championship Cup winner, Sairam Naragoni, the Rogue Raceway boasts a variety of sweeping turns and drag strips for a worthy training challenge.",
+    "TrackDifficulty": 75,
+    "TrackLength": 76.76,
+    "TrackName": "Rogue Raceway",
+    "TrackReleaseTime": 1646092800000,
+    "TrackUsageCount": 174,
+    "TrackWidth": 106.68
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/2022_summit_speedway",
+    "TrackDescription": "Kick starting the 2022 AWS DeepRacer Virtual Circuit with the debut of the Summit Speedway (25.23m). This track is comprised of short sprints and multiple hard decelerating 90 degree turns. Put your developer skills to the test and race the Summit Speedway in-person at AWS Summits returning in 2022!",
+    "TrackDifficulty": 25,
+    "TrackLength": 25.24,
+    "TrackName": "RL Speedway",
+    "TrackReleaseTime": 1643673600000,
+    "TrackUsageCount": 787,
+    "TrackWidth": 106.88
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/caecer_loop",
+    "TrackDescription": "The Vivalas Loop perimeter features a modified oval full of high speed straightaways primed for passing and all out speed. Which racers will roll the dice and go all in?",
+    "TrackDifficulty": 25,
+    "TrackLength": 39.12,
+    "TrackName": "Vivalas Loop",
+    "TrackReleaseTime": 1635588000000,
+    "TrackUsageCount": 88,
+    "TrackWidth": 108
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/caecer_gp",
+    "TrackDescription": "Inspired by a historic Las Vegas track of yesteryear, the Vivalas Speedway is the second longest, and most difficult track to be released in 2021. 5 consecutive opposing hairpins are framed in by the Vivalas Loop perimeter; a modified oval full of high speed straightaways primed for passing and all out speed. Which racers will go all in and gamble it all for the jackpot?",
+    "TrackDifficulty": 70,
+    "TrackLength": 73.78,
+    "TrackName": "Vivalas Speedway",
+    "TrackReleaseTime": 1635552000000,
+    "TrackUsageCount": 246,
+    "TrackWidth": 108
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/red_star_open",
+    "TrackDescription": "Go where no racer has gone before on the Expedition Loop track! This is a short track at 44.04m featuring two dragstrips and an unforgiving hairpin turn. Expect to see no shortage of off tracks on this challenging course.",
+    "TrackDifficulty": 52,
+    "TrackLength": 43.47,
+    "TrackName": "Expedition Loop",
+    "TrackReleaseTime": 1633021200000,
+    "TrackUsageCount": 12,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/red_star_pro",
+    "TrackDescription": "The pro racers will be drifting into uncharted territory on the Expedition Super Loop! This is a long track at 69.96m featuring exceptionally difficult hairpin turns and high speed straightaways. This track is sure to test even the most skillful racers.",
+    "TrackDifficulty": 47,
+    "TrackLength": 69.17,
+    "TrackName": "Expedition Super Loop",
+    "TrackReleaseTime": 1633021080000,
+    "TrackUsageCount": 412,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/morgan_pro",
+    "TrackDescription": " At 59.8m the Playa Super Raceway features back-to-back hairpin turns and two straightaway opportunities to generate speed. A successful run will require skillful command of time (steps) and (action) space.",
+    "TrackDifficulty": 57,
+    "TrackLength": 59.57,
+    "TrackName": "Playa Super Raceway",
+    "TrackReleaseTime": 1630454400000,
+    "TrackUsageCount": 144,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/morgan_open",
+    "TrackDescription": "The Playa Raceway is a short track at 45.16m featuring one long drag strip for generating speed with an unforgiving hairpin turn. While the track seems simple expect to see no shortage of off tracks.",
+    "TrackDifficulty": 55,
+    "TrackLength": 45.06,
+    "TrackName": "Playa Raceway",
+    "TrackReleaseTime": 1630454400000,
+    "TrackUsageCount": 10,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/arctic_pro",
+    "TrackDescription": "The Hot Rod Super Speedway adds pro difficulty to the short track counterpart. With a length of 59.69m, the speed loving arch is replaced by 4 short straightaways coupled with variable angle turns. Skillful racers may bisect the chicanes to extending speed generating opportunities and pull away from the pack.",
+    "TrackDifficulty": 64,
+    "TrackLength": 59.5,
+    "TrackName": "Hot Rod Super Speedway",
+    "TrackReleaseTime": 1627689601000,
+    "TrackUsageCount": 185,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/arctic_open",
+    "TrackDescription": "Featuring a short length of just 42.25m, the Hot Rod Speedway caters to speed loving dragsters with multiple fast running drag strips tied together by friendly sweeping turns. Expect to see blistering fast times this month as models rev their engines and burn rubber around this track.",
+    "TrackDifficulty": 55,
+    "TrackLength": 42.21,
+    "TrackName": "Hot Rod Speedway",
+    "TrackReleaseTime": 1627689601000,
+    "TrackUsageCount": 36,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/dubai_pro",
+    "TrackDescription": "At 65.18m, The Baja Highway extends upon the shorter turnpike with pro level difficulty and even more opportunities for generating speed. A second massive straightaway mid course is similarly capped by a hairpin and increasing radius turn, along with an unforgiving technical section full of wrought with tight cutbacks and hairpins.",
+    "TrackDifficulty": 24,
+    "TrackLength": 64.67,
+    "TrackName": "Baja Highway",
+    "TrackReleaseTime": 1625072280000,
+    "TrackUsageCount": 78,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/dubai_open",
+    "TrackDescription": "At 40.79m, the Baja Turnpike is a short angular track that mixes full throttle straightaways with hard decelerating turns. Signature features include a long high speed sprint over the finish line end capped by a harsh hairpin and tight 90 degree turn. While you won't find any sand traps on this course there are no shortage of places to get stuck.",
+    "TrackDifficulty": 50,
+    "TrackLength": 40.56,
+    "TrackName": "Baja Turnpike",
+    "TrackReleaseTime": 1625072280000,
+    "TrackUsageCount": 160,
+    "TrackWidth": 1.07
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/hamption_open",
+    "TrackDescription": "Kuei Raceway is a fast short track (46.15m) with a friendly high speed arch and two straightaways interspersed between 2 hairpins, a chicane, and a technical cutback hairpin. It is named after 3rd place DeepRacer League finalists Kuei of NCTU CGI Taiwan.",
+    "TrackDifficulty": 52,
+    "TrackLength": 45.93,
+    "TrackName": "Kuei Raceway",
+    "TrackReleaseTime": 1623368700000,
+    "TrackUsageCount": 11,
+    "TrackWidth": 1.06
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/jyllandsringen_pro",
+    "TrackDescription": "Cosmic Circuit expands the universe of its short loop cohort (62.24m). The pro difficulty course adds a deceivingly technical section with multiple 90 degree turns separating meandering sprints void of a true straightaway.",
+    "TrackDifficulty": 37,
+    "TrackLength": 62.02,
+    "TrackName": "Cosmic Circuit",
+    "TrackReleaseTime": 1621978121676,
+    "TrackUsageCount": 161,
+    "TrackWidth": 1.06
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/jyllandsringen_open",
+    "TrackDescription": "Cosmic Loop is a short track (46.18m) that features a single sprint straightaway and a challenging technical section with multiple 90 degree turns and and two hairpins. A successful run will require skillful command of time (steps) and (action) space.",
+    "TrackDifficulty": 50,
+    "TrackLength": 46.12,
+    "TrackName": "Cosmic Loop",
+    "TrackReleaseTime": 1621977289088,
+    "TrackUsageCount": 91,
+    "TrackWidth": 1.06
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/hamption_pro",
+    "TrackDescription": "Kuei Super Raceway adds pro difficulty to its short track counterpart by extending overall length in the form of a straightaway with a technical 4x double apex section. It is named after 3rd place DeepRacer League finalists Kuei of NCTU CGI Taiwan.",
+    "TrackDifficulty": 35,
+    "TrackLength": 60.74,
+    "TrackName": "Kuei Super Raceway",
+    "TrackReleaseTime": 1619827200000,
+    "TrackUsageCount": 35,
+    "TrackWidth": 1.06
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/thunder_hill_pro",
+    "TrackDescription": "Lars Circuit is a pro difficulty track that adds an increasing to decreasing double apex and multiple high speed straightaways to its shorter cohort Lars Loop. It is named in honor of 2020 AWS DeepRacer League silver medalist Lars Ludvigsen (Duckworth).",
+    "TrackDifficulty": 28,
+    "TrackLength": 59.23,
+    "TrackName": "Lars Circuit",
+    "TrackReleaseTime": 1617235201000,
+    "TrackUsageCount": 116,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/thunder_hill_open",
+    "TrackDescription": "Lars Loop is a short track comprised of a modified oval with increasing radius and double apex, a varying double chicane, and a broad hairpin final stretch. It is named in honor of 2020 AWS DeepRacer League silver medalist Lars Ludvigsen (Duckworth).",
+    "TrackDifficulty": 34,
+    "TrackLength": 41.55,
+    "TrackName": "Lars Loop",
+    "TrackReleaseTime": 1617235201000,
+    "TrackUsageCount": 63,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/penbay_open",
+    "TrackDescription": "Po-Chun Speedway is a short track (68.68m) featuring a simple oval track paired with a dragstrip, and single hairpin. It is named in honor of the 2020 AWS DeepRacer League Champion from NCTU CGI Taiwan.",
+    "TrackDifficulty": 43,
+    "TrackLength": 68.68,
+    "TrackName": "Po-Chun Speedway",
+    "TrackReleaseTime": 1614560400000,
+    "TrackUsageCount": 242,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/penbay_pro",
+    "TrackDescription": "Po-Chun Super Speedway is a long track (89.24m) which adds back-to-back hairpins and a high speed right angle turn its short track counterpart. It is named in honor of the 2020 AWS DeepRacer League Champion from NCTU CGI Taiwan.",
+    "TrackDifficulty": 31,
+    "TrackLength": 89.24,
+    "TrackName": "Po-Chun Super Speedway",
+    "TrackReleaseTime": 1614560400000,
+    "TrackUsageCount": 57,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Monaco_building",
+    "TrackDescription": "A highly technical track, the European Seaside Circuit’s tight turns weave through a timeless Mediterranean cliffside village with iconic buildings.",
+    "TrackDifficulty": 61,
+    "TrackLength": 60,
+    "TrackName": "European Seaside Circuit - Buildings",
+    "TrackReleaseTime": 1609718400000,
+    "TrackUsageCount": 18,
+    "TrackWidth": 128
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Singapore_building",
+    "TrackDescription": "Streak through the Marina Bay’s waterfront on the Asia Pacific Bay Loop, a fast and open nighttime track with iconic buildings.",
+    "TrackDifficulty": 78,
+    "TrackLength": 60,
+    "TrackName": "Asia Pacific Bay Loop - Buildings",
+    "TrackReleaseTime": 1609718400000,
+    "TrackUsageCount": 48,
+    "TrackWidth": 135
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Austin",
+    "TrackDescription": "Set in the Southern United States, the American Hills Speedway is a classic circuit, featuring two technical turn sections and three high speed straightaways.",
+    "TrackDifficulty": 54,
+    "TrackLength": 59,
+    "TrackName": "American Hills Speedway",
+    "TrackReleaseTime": 1604966400000,
+    "TrackUsageCount": 62,
+    "TrackWidth": 131
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Singapore",
+    "TrackDescription": "Streak through the Marina Bay’s waterfront on the Asia Pacific Bay Loop, a fast and open nighttime track.",
+    "TrackDifficulty": 78,
+    "TrackLength": 60,
+    "TrackName": "Asia Pacific Bay Loop",
+    "TrackReleaseTime": 1604966400000,
+    "TrackUsageCount": 70,
+    "TrackWidth": 135
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Monaco",
+    "TrackDescription": "A highly technical track, the European Seaside Circuit’s tight turns weave through a timeless Mediterranean cliffside village, without buildings.",
+    "TrackDifficulty": 61,
+    "TrackLength": 60,
+    "TrackName": "European Seaside Circuit",
+    "TrackReleaseTime": 1604966400000,
+    "TrackUsageCount": 228,
+    "TrackWidth": 128
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Aragon",
+    "TrackDescription": "An all-out sprint to the finish line, the Stratus Loop is a speed-loving track featuring two massive straightaways punctuated by broad, sweeping hairpins.",
+    "TrackDifficulty": 36,
+    "TrackLength": 60,
+    "TrackName": "Stratus Loop",
+    "TrackReleaseTime": 1601510400000,
+    "TrackUsageCount": 29,
+    "TrackWidth": 105
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Belille",
+    "TrackDescription": "The Cumulo Turnpike shifts from high-speed straightaways to challenging corners. It requires a perfect storm of exceptional navigation skill and speed control.",
+    "TrackDifficulty": 33,
+    "TrackLength": 60,
+    "TrackName": "Cumulo Turnpike",
+    "TrackReleaseTime": 1598918400000,
+    "TrackUsageCount": 850,
+    "TrackWidth": 106
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Albert",
+    "TrackDescription": "“Yun” is the Chinese word for “cloud.” A broad loop demanding constant cornering, the Yun Speedway is the lofty domain of the racing line specialist.",
+    "TrackDifficulty": 82,
+    "TrackLength": 51,
+    "TrackName": "Yun Speedway",
+    "TrackReleaseTime": 1596240000000,
+    "TrackUsageCount": 146,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/July_2020",
+    "TrackDescription": "Named in honor of the 2019 Championship Cup bronze medalist, Roger Chu, the Roger Raceway boasts a variety of complex curves for a worthy training challenge.",
+    "TrackDifficulty": 56,
+    "TrackLength": 60,
+    "TrackName": "Roger Raceway",
+    "TrackReleaseTime": 1593561600000,
+    "TrackUsageCount": 19,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/FS_June2020",
+    "TrackDescription": "Dedicated to our runner up at the 2019 Championship Cup and inspired by Fuji Speedway, the Fumiaki Loop is a serious challenge for any developer. Start racing today for your opportunity to punch a ticket to re:Invent 2023!",
+    "TrackDifficulty": 32,
+    "TrackLength": 53,
+    "TrackName": "Fumiaki Loop",
+    "TrackReleaseTime": 1590969600000,
+    "TrackUsageCount": 64,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Spain_track",
+    "TrackDescription": "A reproduction of the official F1 Spanish Grand Prix track, the Circuit de Barcelona-Catalunya features 16 turns and two massive straightaways.",
+    "TrackDifficulty": 31,
+    "TrackLength": 60,
+    "TrackName": "Circuit de Barcelona-Catalunya",
+    "TrackReleaseTime": 1588291200000,
+    "TrackUsageCount": 97,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/reInvent2019_track",
+    "TrackDescription": "The official track for the 2019 AWS DeepRacer Championship Cup finals, this is a moderately challenging track ideal for stepping up your training and experimentation.",
+    "TrackDifficulty": 88,
+    "TrackLength": 23.12,
+    "TrackName": "Smile Speedway",
+    "TrackReleaseTime": 1585699200000,
+    "TrackUsageCount": 2136,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/reinvent_base",
+    "TrackDescription": "Inspired by Monza, re:Invent 2018 was the first Championship Cup track. This short, classic speedway remains a perennial rookie favorite.",
+    "TrackDifficulty": 69,
+    "TrackLength": 17.6,
+    "TrackName": "re:Invent 2018",
+    "TrackReleaseTime": 1583020800000,
+    "TrackUsageCount": 5566,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/AmericasGeneratedInclStart",
+    "TrackDescription": "“Baadal” is the Hindi word for “cloud.” The Baadal Track’s tight winding corners open up into long arching straightaways, perfect for passing opportunities.",
+    "TrackDifficulty": 72,
+    "TrackLength": 39,
+    "TrackName": "Baadal Track",
+    "TrackReleaseTime": 1580515200000,
+    "TrackUsageCount": 161,
+    "TrackWidth": 107
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/LGSWide",
+    "TrackDescription": "Dedicated to reigning AWS DeepRacer Championship Cup winner, SOLA-DNP, the SOLA Speedway features high-speed straightaways and hairpin turns.",
+    "TrackDifficulty": 50,
+    "TrackLength": 38,
+    "TrackName": "SOLA Speedway",
+    "TrackReleaseTime": 1577836800000,
+    "TrackUsageCount": 56,
+    "TrackWidth": 106
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Vegas_track",
+    "TrackDescription": "Created to prepare racers for the 2020 AWS DeepRacer League, the AWS Summit Raceway provides a solid training warm up for any agent.",
+    "TrackDifficulty": 49,
+    "TrackLength": 22.57,
+    "TrackName": "AWS Summit Raceway",
+    "TrackReleaseTime": 1575158400000,
+    "TrackUsageCount": 152,
+    "TrackWidth": 91
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Canada_Training",
+    "TrackDescription": "October’s training track for the 2019 Virtual Circuit World Tour, the Toronto Turnpike bookends a variety of subtle curves with two hairpins.",
+    "TrackDifficulty": 25,
+    "TrackLength": 21.74,
+    "TrackName": "Toronto Turnpike Training",
+    "TrackReleaseTime": 1569888000000,
+    "TrackUsageCount": 27,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Mexico_track",
+    "TrackDescription": "September’s training track for the 2019 Virtual Circuit World Tour, the Cumulo Carrera is a good choice for training for cornering convergence.",
+    "TrackDifficulty": 23,
+    "TrackLength": 20.51,
+    "TrackName": "Cumulo Carrera Training",
+    "TrackReleaseTime": 1567296000000,
+    "TrackUsageCount": 39,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/China_track",
+    "TrackDescription": "August’s training track for the 2019 Virtual Circuit World Tour, the Shanghai Sudu is an ideal speedway for experimenting with bold corners and basic straightaways.",
+    "TrackDifficulty": 32,
+    "TrackLength": 22.92,
+    "TrackName": "Shanghai Sudu Training",
+    "TrackReleaseTime": 1564617600000,
+    "TrackUsageCount": 54,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/New_York_Track",
+    "TrackDescription": "July’s training track for the 2019 Virtual Circuit World Tour, the Empire City showcases a mix of subtle chicanes, moderate corners, and short straights.",
+    "TrackDifficulty": 42,
+    "TrackLength": 21.88,
+    "TrackName": "Empire City Training",
+    "TrackReleaseTime": 1561939200000,
+    "TrackUsageCount": 73,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Tokyo_Training_track",
+    "TrackDescription": "June’s training track for the 2019 Virtual Circuit World Tour, the Kumo Torakku is complex and dramatic, featuring two 180-degree turns and a longstraightaway.",
+    "TrackDifficulty": 31,
+    "TrackLength": 22.63,
+    "TrackName": "Kumo Torakku Training",
+    "TrackReleaseTime": 1559347200000,
+    "TrackUsageCount": 26,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Virtual_May19_Train_track",
+    "TrackDescription": "May’s training track for the 2019 Virtual Circuit World Tour, the London Loop provides a variety of moderate curves and straightaways.",
+    "TrackDifficulty": 16,
+    "TrackLength": 19.45,
+    "TrackName": "London Loop Training",
+    "TrackReleaseTime": 1556668800000,
+    "TrackUsageCount": 61,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Bowtie_track",
+    "TrackDescription": "The Bowtie offers a simple symmetrical track with a twist. It features shallow turns that you can use to experiment with different racing behaviors.",
+    "TrackDifficulty": 50,
+    "TrackLength": 17.43,
+    "TrackName": "Bowtie Track",
+    "TrackReleaseTime": 1554076800000,
+    "TrackUsageCount": 139,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "COUNTER_CLOCKWISE",
+      "EnabledDirections": ["COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/Oval_track",
+    "TrackDescription": "Inspired by Indy Speedway, the Oval Track is simple and gives the agent space to learn different strategies. It’s a good choice for getting started.",
+    "TrackDifficulty": 92,
+    "TrackLength": 19.55,
+    "TrackName": "Oval Track",
+    "TrackReleaseTime": 1551398400000,
+    "TrackUsageCount": 285,
+    "TrackWidth": 76
+  },
+  {
+    "AvailableTrackFeatures": {
+      "DefaultDirection": "CLOCKWISE",
+      "EnabledDirections": ["CLOCKWISE", "COUNTER_CLOCKWISE"]
+    },
+    "TrackArn": "arn:aws:deepracer:us-east-1::track/reInvent2019_wide",
+    "TrackDescription": "It’s easier for an agent to navigate this extra wide version of re:Invent 2018. Use it to get started with object avoidance and head-to-head race training.",
+    "TrackDifficulty": 94,
+    "TrackLength": 16.64,
+    "TrackName": "A to Z Speedway",
+    "TrackReleaseTime": 1548979200000,
+    "TrackUsageCount": 672,
+    "TrackWidth": 107
+  }
+]

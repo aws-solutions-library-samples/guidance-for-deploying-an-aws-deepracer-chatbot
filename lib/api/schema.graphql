@@ -1,0 +1,230 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+# Enums
+# These define the possible values for various fields throughout the schema
+
+enum ModelStatus {
+  uploaded
+  ready
+  deleted
+  error
+}
+
+enum MessageStatus {
+  success
+  error
+}
+
+# Image formats supported by the Bedrock ConverseStream API
+enum ImageFormat {
+  png
+  jpeg
+  gif
+  webp
+}
+
+# Document formats supported by the Bedrock ConverseStream API
+enum DocumentFormat {
+  pdf
+  csv
+  doc
+  docx
+  xls
+  xlsx
+  html
+  txt
+  md
+}
+
+# Roles for messages in a conversation
+enum MessageRole {
+  user
+  assistant
+}
+
+# Variants of chatbot functionality
+enum ChatbotVariant {
+  questionsAndAnswers
+  modelEvaluation
+  rewardFunctionGeneration
+}
+
+# Types
+# These define the structure of objects returned by queries and mutations
+
+# Represents a message in the conversation, aligning with Bedrock's message structure
+type Message @aws_cognito_user_pools(cognito_groups: ["Users"]) @aws_iam {
+  role: MessageRole!
+  content: [ContentBlock!]!
+}
+
+# Represents a block of content within a message, supporting only text
+type ContentBlock @aws_cognito_user_pools(cognito_groups: ["Users"]) @aws_iam {
+  text: String
+}
+
+# Represents the source of an image, using base64 encoding
+type ImageSource @aws_cognito_user_pools(cognito_groups: ["Users"]) @aws_iam {
+  bytes: String!
+}
+
+# Represents the source of a document, using base64 encoding
+type DocumentSource
+  @aws_cognito_user_pools(cognito_groups: ["Users"])
+  @aws_iam {
+  bytes: String! # Base64 encoded document data
+}
+
+# Represents a model in the system, reflecting Bedrock's model status
+type Model @aws_cognito_user_pools(cognito_groups: ["Users"]) @aws_iam {
+  modelName: String!
+  status: ModelStatus!
+  statusDetails: String
+}
+
+# Represents a receipt for a sent message, aligning with Bedrock's message receipt
+type MessageReceipt {
+  sessionId: ID!
+  messageId: ID!
+  status: MessageStatus!
+  errorMessage: String
+}
+
+# Represents a response message from the model
+type MessageResponse
+  @aws_cognito_user_pools(cognito_groups: ["Users"])
+  @aws_iam {
+  chatbotVariant: ChatbotVariant
+  sessionId: ID
+  messageId: ID
+  userId: ID
+  role: MessageRole
+  content: ContentBlock
+}
+
+# Represents a subscription to model updates
+type ModelSubscription
+  @aws_cognito_user_pools(cognito_groups: ["Users"])
+  @aws_iam {
+  models: [Model]
+  userId: ID
+}
+
+# Inputs
+# These define the structure of data that can be sent to mutations
+
+input SourceInput {
+  bytes: String!
+}
+
+# Input structure for sending a message, mirroring Bedrock's message input
+input MessageInput {
+  role: MessageRole!
+  content: [ContentBlockInput!]!
+}
+
+input ResponseContentBlockInput {
+  text: String
+}
+
+# Input structure for a content block, supporting text, images, and documents
+input ContentBlockInput {
+  text: String
+  image: ImageContentInput
+  document: DocumentContentInput
+}
+
+input ImageContentInput {
+  format: ImageFormat!
+  source: ImageSourceInput!
+}
+
+input ImageSourceInput {
+  bytes: String!
+}
+
+input DocumentContentInput {
+  format: DocumentFormat!
+  name: String!
+  source: DocumentSourceInput!
+}
+
+input DocumentSourceInput {
+  bytes: String!
+}
+
+# Query
+# Defines the available queries and their return types
+
+type Query {
+  # Retrieves the conversation history for the user, limited by maxResults
+  getMessages(maxResults: Int!): [Message!]
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+
+  # Retrieves all available models for the user
+  getModels: [Model] @aws_cognito_user_pools(cognito_groups: ["Users"])
+}
+
+# Mutation
+# Defines the available mutations and their input/output types
+
+type Mutation {
+  # Sends a new message to the chatbot, initiating a new conversation if SessionId is empty or new
+  sendMessage(
+    chatbotVariant: ChatbotVariant!
+    sessionId: ID
+    content: [ContentBlockInput!]!
+  ): MessageReceipt! @aws_cognito_user_pools(cognito_groups: ["Users"])
+
+  # Streams a response from the chatbot, simulating Bedrock's ConverseStream API
+  streamResponse(
+    chatbotVariant: ChatbotVariant!
+    sessionId: ID!
+    messageId: ID!
+    userId: ID!
+    content: ResponseContentBlockInput!
+  ): MessageResponse!
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+    @aws_iam
+
+  # Deletes specified DeepRacer models
+  deleteModels(modelNames: [String]!): ModelSubscription!
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+
+  # Invoked by the backend when a new DeepRacer model has been added to the system
+  modelAdded(
+    userId: ID!
+    modelName: String!
+    status: ModelStatus!
+    statusDetails: String
+  ): ModelSubscription
+    @aws_iam
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+}
+
+# Subscription
+# Defines the available subscriptions and their triggers
+
+type Subscription {
+  # Subscribes to stream responses for a specific user, simulating Bedrock's streaming capability
+  onStreamResponse(userId: String!): MessageResponse!
+    @aws_subscribe(mutations: ["streamResponse"])
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+    @aws_iam
+
+  # Subscribes to model additions for a specific user
+  onModelAdded(userId: String): ModelSubscription
+    @aws_subscribe(mutations: ["modelAdded"])
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+    @aws_iam
+
+  # Subscribes to model deletions for a specific user
+  onModelsDeleted(userId: String): ModelSubscription
+    @aws_subscribe(mutations: ["deleteModels"])
+    @aws_cognito_user_pools(cognito_groups: ["Users"])
+    @aws_iam
+}

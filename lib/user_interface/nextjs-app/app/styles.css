@@ -1,0 +1,44 @@
+#top-nav {
+    position: sticky;
+    /* left: 0; */
+    top: 0;
+    /* right: 0; */
+    z-index: 1002;
+  }
+
+  .homepage_cards {
+    margin-top: 20px;
+  }
+
+  div:has(> .footerblock) {
+    padding:0 !important;
+    background: #0972d3 !important;
+  }
+  .footerblock {
+    position: relative;
+  }
+  .chatbar_textinput {
+    position: relative;
+  }
+  .chatbar_textinput textarea {
+    padding: 5px 40px !important;
+    background: #0972d3 !important;
+    border-color: #0972d3 !important;
+    color: #fff !important;
+    resize: none !important;
+  }
+  .chatbar_textinput textarea::placeholder {
+    color: #fff !important;
+  }
+  
+
+  .chatbar_imageinput {
+    position: absolute;
+    left: 0;
+    top:0;
+  }
+  .chatbar_submit {
+    position: absolute !important;
+    right:0;
+    top:0;
+  }

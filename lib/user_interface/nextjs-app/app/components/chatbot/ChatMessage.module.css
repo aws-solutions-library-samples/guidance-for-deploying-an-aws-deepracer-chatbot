@@ -1,0 +1,34 @@
+.box {
+    display: flex;
+}
+
+.icon {
+    min-width: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;;
+}
+
+.messageArea {
+    padding-left: 15px;
+}
+.textArea {
+    white-space: pre-line;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    padding-top: 10px;
+}
+
+.ai {
+    background-color: #664ba1;
+    color: white;
+}
+
+.user {
+    background-color: white;
+    color: black;
+  }

@@ -1,0 +1,38 @@
+{
+  "name": "deepracer-model-evaluator",
+  "version": "0.1.0",
+  "bin": {
+    "deepracer-model-evaluator": "bin/deepracer-model-evaluator.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "generate-api-spec": "pushd ./lib/user_interface/nextjs-app/ && amplify codegen && popd",
+    "fe-run-dev": "pushd ./lib/user_interface/nextjs-app && npm run dev && popd",
+    "dev-deploy": "./scripts_n_helpers/build/aws-exports.sh dev && pushd ./lib/user_interface/nextjs-app && npm install && npm run build && popd && cdk deploy -c config=dev --profile app-a",
+    "dev-deploy-be": "cdk deploy -c config=dev --profile app-a && ./scripts_n_helpers/build/aws-exports.sh dev",
+    "prod-deploy": "./scripts_n_helpers/build/aws-exports.sh prod && pushd ./lib/user_interface/nextjs-app && npm install && npm run build && popd && cdk deploy -c config=prod --profile app-a",
+    "prod-deploy-be": "cdk deploy -c config=prod --profile app-a && ./scripts_n_helpers/build/aws-exports.sh prod"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.125",
+    "@types/jest": "^29.5.5",
+    "@types/node": "22.4.0",
+    "aws-cdk": "2.164.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.5.4"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-cognito-identitypool-alpha": "^2.164.0-alpha.0",
+    "@aws-cdk/aws-lambda-python-alpha": "^2.164.0-alpha.0",
+    "@aws-sdk/client-sts": "^3.658.1",
+    "aws-cdk-lib": "2.164.0",
+    "cdk-aws-lambda-powertools-layer": "^3.7.0",
+    "chalk": "^5.3.0",
+    "constructs": "^10.0.0",
+    "terminal-link": "^3.0.0"
+  }
+}

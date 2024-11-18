@@ -1,0 +1,9 @@
+.workArea {
+    height: calc(100% - 1px)
+}
+
+.messageArea {
+    height: 75%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

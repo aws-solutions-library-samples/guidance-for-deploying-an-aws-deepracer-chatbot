@@ -1,0 +1,34 @@
+[
+  {
+    "input": "Write a reward function which incentivize the car to follow the center line",
+    "output": "def reward_function(params): '''Example of rewarding the agent to follow center line'''# Read input parameters track_width = params['track_width']distance_from_center = params['distance_from_center']# Calculate 3 markers that are increasingly further away from the center line marker_1 = 0.1 * track_width marker_2 = 0.25 * track_width marker_3 = 0.5 * track_width# Give higher reward if the car is closer to center line and vice versa if distance_from_center <= marker_1:reward = 1 elif distance_from_center <= marker_2:reward = 0.5 elif distance_from_center <= marker_3:reward = 0.1else:reward = 1e-3  # likely crashed/ close to off track return reward"
+  },
+  {
+    "input": "Generate a reward function which gives high rewards if the agent stays inside the track borders",
+    "output": "def reward_function(params): '''Example of rewarding the agent to stay inside the two borders of the track'''# Read input parameters all_wheels_on_track = params['all_wheels_on_track']distance_from_center = params['distance_from_center']track_width = params['track_width']# Give a very low reward by default reward = 1e-3# Give a high reward if no wheels go off the track and# the car is somewhere in between the track borders if all_wheels_on_track and (0.5*track_width - distance_from_center) >= 0.05:reward = 1.0# Always return a float value return reward"
+  },
+  {
+    "input": "Create a function that makes the car follow the center line and steers smoothly",
+    "output": "def reward_function(params): '''Example of penalize steering, which helps mitigate zig-zag behaviors'''# Read input parameters distance_from_center = params['distance_from_center']track_width = params['track_width']abs_steering = abs(params['steering_angle']) # Only need the absolute steering angle# Calculate 3 marks that are farther and father away from the center line marker_1 = 0.1 * track_width marker_2 = 0.25 * track_width marker_3 = 0.5 * track_width# Give higher reward if the car is closer to center line and vice versa if distance_from_center <= marker_1:reward = 1.0 elif distance_from_center <= marker_2:reward = 0.5 elif distance_from_center <= marker_3:reward = 0.1else:reward = 1e-3  # likely crashed/ close to off track# Steering penalty threshold, change the number based on your action space settingABS_STEERING_THRESHOLD = 15# Penalize reward if the car is steering too much if abs_steering > ABS_STEERING_THRESHOLD:reward *= 0.8return float(reward)"
+  },
+  {
+    "input": "Create a reward function that incentivize getting as far around the track as possible as quickly as possible",
+    "output": "def reward_function(params):if params[\"all_wheels_on_track\"] and params[\"steps\"] > 0:steps = params[\"steps\"]reward = (params[\"speed\"]**2) * (1 + 1/steps)else:reward = 0.01return float(reward)"
+  },
+  {
+    "input": "Create a reward function that rewards making the most progress in the least amount of steps",
+    "output": "def reward_function(params): progress = params['progress']steps = params['steps']reward = (1e-3) + (progress / (steps*steps))return float(reward)"
+  },
+  {
+    "input": "Create a reward function that makes the most progress in the fewest number of steps",
+    "output": "def reward_function(params): if params[\"all_wheels_on_track\"] and params[\"steps\"] > 0: reward = ((params[\"progress\"] / params[\"steps\"]) * 100) + (params[\"speed\"]**2) else: reward = 0.01return float(reward)"
+  },
+  {
+    "input": "Write a reward function that incentivize maintaining a minimum speed and prevent zig-zag using a steering threshold",
+    "output": "def reward_function(params): track_width = params['track_width']distance_from_center = params['distance_from_center']reward = 0STEERING_THRESHOLD = 17.0MIN_SPEED = 1.5actual_steering = abs(params['steering_angle'])current_speed = params['speed']if not params['all_wheels_on_track']:  reward = 1e-3marker_1 = 0.1 * track_width marker_2 = 0.25 * track_width marker_3 = 0.5 * track_width if distance_from_center <= marker_1:  reward = reward + 1.0 elif distance_from_center <= marker_2:  reward = reward + 0.5elif distance_from_center <= marker_3:  reward = reward + 0.1else:  reward = 1e-3if actual_steering <= STEERING_THRESHOLD :  reward *= 1.2if current_speed >= MIN_SPEED :  reward *= 1.2return float(reward)"
+  },
+  {
+    "input": "Write a reward function that incentivize speed and reduce zig-zag and stay on track",
+    "output": "def reward_function(params): all_wheels_on_track = params['all_wheels_on_track']distance_from_center = params['distance_from_center']track_width = params['track_width']abs_steering = abs(params['steering_angle']) # Only need the absolute steering angle reward = 1e-3# Reward if the agent stays inside the two borders of the track if all_wheels_on_track and (0.5 * track_width - distance_from_center) >= 0.05:reward_lane = 1.0else:reward_lane = 1e-3reward_straight = 1.0# Steering penalty threshold, change the number based on your action space settingABS_STEERING_THRESHOLD = 15# Penalize reward if the car is steering too much if abs_steering > ABS_STEERING_THRESHOLD:reward_straight *= 0.8reward_fast = 1.0# we penalize any speed less than 1m/sSPEED_MIN = 1.5if params['speed'] < SPEED_MIN:reward_fast *= 0.5# Calculate reward by putting different weights on# the two aspects above reward += 2.0 * reward_lane + 1.0 * reward_straight + 1.5 * reward_fast return reward"
+  }
+]

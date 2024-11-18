@@ -1,0 +1,20 @@
+[
+  {
+    "document_name": "AWS DeepRacer FAQs",
+    "link": "https://aws.amazon.com/deepracer/faqs/",
+    "local_disc_name": "AWS DeepRacer FAQs.pdf"
+  },
+  {
+    "local_disc_name": "AWS DeepRacer race winners 2023.pdf"
+  },
+  {
+    "document_name": "AWS DeepRacer Developer Guide",
+    "link": "https://docs.aws.amazon.com/deepracer/latest/developerguide/index.html",
+    "local_disc_name": "awsracerdg.pdf"
+  },
+  {
+    "document_name": "AWS DeepRacer Student User Guide",
+    "link": "https://docs.aws.amazon.com/deepracer/latest/student-userguide/index.html",
+    "local_disc_name": "student-userguide.pdf"
+  }
+]

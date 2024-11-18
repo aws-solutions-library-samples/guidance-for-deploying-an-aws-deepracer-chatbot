@@ -1,0 +1,16 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+!next.config.js
+!.eslintrc.js
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+**/.DS_Store
+**/__pycache__/
+scripts_n_helpers/model_data_extractor/deepracer_models.json
+
+outputs.json
+.venv/*
