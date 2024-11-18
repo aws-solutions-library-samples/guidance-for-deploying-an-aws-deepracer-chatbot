@@ -1,215 +1,225 @@
-# Guidance Title (required)
+# Guidance for AWS DeepRacer chatbot
 
-The Guidance title should be consistent with the title established first in Alchemy.
+## Table of Contents
 
-**Example:** *Guidance for Product Substitutions on AWS*
+1. [Overview](#overview)
+   - [Architecture](#architecture)
+   - [Cost](#cost)
+2. [Prerequisites](#prerequisites)
+   - [Operating System](#operating-system)
+3. [Deployment Steps](#deployment-steps)
+4. [Deployment Validation](#deployment-validation)
+5. [Running the Guidance](#running-the-guidance)
+6. [Next Steps](#next-steps)
+7. [Cleanup](#cleanup)
+8. [FAQ, known issues, additional considerations, and limitations](#faq-known-issues-additional-considerations-and-limitations)
+9. [Revisions](#revisions)
+10. [Notices](#notices)
+11. [Authors](#authors)
 
-This title correlates exactly to the Guidance it’s linked to, including its corresponding sample code repository. 
+## Overview
 
+This guidance provides a chatbot solution for AWS DeepRacer, allowing users to chat their way to deeper knowledge about AWS DeepRacer and how to improve their own DeepRacer models. The chatbot is a NextJS application with a Bedrock-powered serverless backend, and the infrastructure is managed via AWS CDK.
 
-## Table of Contents (required)
+### Architecture
 
-List the top-level sections of the README template, along with a hyperlink to the specific section.
+#### Overview
 
-### Required
+![Chatbot Architecture Overview](docs/chatbot-architecture-1.png)
 
-1. [Overview](#overview-required)
-    - [Cost](#cost)
-2. [Prerequisites](#prerequisites-required)
-    - [Operating System](#operating-system-required)
-3. [Deployment Steps](#deployment-steps-required)
-4. [Deployment Validation](#deployment-validation-required)
-5. [Running the Guidance](#running-the-guidance-required)
-6. [Next Steps](#next-steps-required)
-7. [Cleanup](#cleanup-required)
+1. The user navigates to the Amazon CloudFront URL to fetch the DeepRacer Chatbot webpage.
+2. The static webapp is stored in Amazon Simple Storage Service (Amazon S3)
+3. The user authenticates with Amazon Cognito
+4. The user queries are sent to the Appsync API
+5. AWS Lambda based resolvers is hosting the chatbot query orchestration logic.
+6. Amazon DynamoDB is used to store the users chat history to be able to continue the conversation with the chatbot.
+7. An LLM hosted on Amazon Bedrock is used to power the conversation using the Amazon Bedrock Converse streaming API
+8. The responses is streamed to the subscribed clients via Amazon Appsync
 
-***Optional***
+#### Model Evaluation
 
-8. [FAQ, known issues, additional considerations, and limitations](#faq-known-issues-additional-considerations-and-limitations-optional)
-9. [Revisions](#revisions-optional)
-10. [Notices](#notices-optional)
-11. [Authors](#authors-optional)
+![Model Evaluation Architecture](docs/chatbot-architecture-2.png)
 
-## Overview (required)
+1. Export and download your DeepRacer models to your laptop and stored as a zip file.
+2. Upload the compressed model package to Amazon Simple Storage Service (Amazon S3).
+3. When a new object is created in Amazon S3 a lambda is invoked to download and parse logs inside the compressed model. The result is stored in an Amazon DynamoDB table and the uploaded model is deleted from Amazon S3.
+4. When a user ask a question about the model, the message is sent to Amazon Appsync with an AWS Lambda resolver.
+5. The AWS Lambda function will forward the message to the Amazon Bedrock Converse stream API and using function calling to fetch the parsed model from Amazon DynamoDB.
+6. The LLM in Amazon Bedrock will utilize the system prompt, model data and the user question to analyze the model.
+7. The model response is streamed via the AWS Lambda and Appsync to the subscribing client
 
-1. Provide a brief overview explaining the what, why, or how of your Guidance. You can answer any one of the following to help you write this:
+### Cost
 
-    - **Why did you build this Guidance?**
-    - **What problem does this Guidance solve?**
+You are responsible for the cost of the AWS services used while running this Guidance. As of September 2024, the cost for running this Guidance with the default settings in the US East (N.Virginia) region is approximately $12 per month for processing 1M/100K input/output tokens with Bedrock plus the supporting services required to run this Guidance.
 
-2. Include the architecture diagram image, as well as the steps explaining the high-level overview and flow of the architecture. 
-    - To add a screenshot, create an ‘assets/images’ folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README. 
+We recommend creating a [Budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) through [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this Guidance.
 
-### Cost ( required )
+### Sample Cost Table
 
-This section is for a high-level cost estimate. Think of a likely straightforward scenario with reasonable assumptions based on the problem the Guidance is trying to solve. Provide an in-depth cost breakdown table in this section below ( you should use AWS Pricing Calculator to generate cost breakdown ).
+| Service           | Monthly Cost |
+| :---------------- | -----------: |
+| Amazon Cognito    |        $0.50 |
+| AWS AppSync       |        $1.54 |
+| AWS Lambda        |        $0.08 |
+| Amazon DynamoDB   |        $0.30 |
+| Amazon S3         |        $0.03 |
+| Amazon CloudFront |        $0.86 |
+| Amazon CloudWatch |        $2.76 |
+| Amazon Bedrock    |        $5.80 |
+| Data Transfer     |        $0.09 |
+| _Total_           |     _$11.96_ |
 
-Start this section with the following boilerplate text:
+## Prerequisites
 
-_You are responsible for the cost of the AWS services used while running this Guidance. As of <month> <year>, the cost for running this Guidance with the default settings in the <Default AWS Region (Most likely will be US East (N. Virginia)) > is approximately $<n.nn> per month for processing ( <nnnnn> records )._
+### Operating System
 
-Replace this amount with the approximate cost for running your Guidance in the default Region. This estimate should be per month and for processing/serving resonable number of requests/entities.
+These deployment instructions are optimized to work best on MacOS or Linux. Deployment on Windows may require additional steps.
 
-Suggest you keep this boilerplate text:
-_We recommend creating a [Budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) through [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this Guidance._
+1. Install [Finch](https://github.com/runfinch/finch)
+2. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+3. Install [Amplify CLI](https://docs.amplify.aws/gen1/javascript/tools/cli/start/set-up-cli/)
+4. Install Node.js (version 18 or later)
 
-### Sample Cost Table ( required )
+### AWS account requirements
 
-**Note : Once you have created a sample cost table using AWS Pricing Calculator, copy the cost breakdown to below table and upload a PDF of the cost estimation on BuilderSpace. Do not add the link to the pricing calculator in the ReadMe.**
+This guidance requires admin permissions for IAM to deploy all necessary resources.
 
-The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
+Additionally, ensure that the following models are enabled in Amazon Bedrock in the region of deployment:
 
-| AWS service  | Dimensions | Cost [USD] |
-| ----------- | ------------ | ------------ |
-| Amazon API Gateway | 1,000,000 REST API calls per month  | $ 3.50month |
-| Amazon Cognito | 1,000 active users per month without advanced security feature | $ 0.00 |
+1. Titan Multimodal Embeddings G1
+2. Claude 3.5 Sonnet
 
-## Prerequisites (required)
+See [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html) for more details on enabling these models.
 
-### Operating System (required)
+### Supported Regions
 
-- Talk about the base Operating System (OS) and environment that can be used to run or deploy this Guidance, such as *Mac, Linux, or Windows*. Include all installable packages or modules required for the deployment. 
-- By default, assume Amazon Linux 2/Amazon Linux 2023 AMI as the base environment. All packages that are not available by default in AMI must be listed out.  Include the specific version number of the package or module.
+This deployment has been tested in us-east-1 (N.Virginia) and us-west-2 (Oregon) but is built to work in all AWS regions where Amazon Bedrock and the required models (Titan Multimodal Embeddings G1 and Claude 3 Sonnet) are available.
 
-**Example:**
-“These deployment instructions are optimized to best work on **<Amazon Linux 2 AMI>**.  Deployment in another OS may require additional steps.”
+## Deployment Steps
 
-- Include install commands for packages, if applicable.
+1. Clone the repo:
+   ```
+   git clone <placeholder_url>
+   ```
+2. Change to the root of the project:
+   ```
+   cd <project_directory>
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Start Finch VM:
+   ```
+   finch vm start
+   ```
+5. Log in to your AWS account using the AWS CLI:
 
+   a. If you haven't already configured your AWS CLI, run the following command and follow the prompts:
 
-### Third-party tools (If applicable)
+   ```
+   aws configure
+   ```
 
-*List any installable third-party tools required for deployment.*
+   You'll need to enter your AWS Access Key ID, Secret Access Key, default region name, and default output format.
 
+   b. If you're using named profiles, you can switch to a specific profile using:
 
-### AWS account requirements (If applicable)
+   ```
+   export AWS_PROFILE=your-profile-name
+   ```
 
-*List out pre-requisites required on the AWS account if applicable, this includes enabling AWS regions, requiring ACM certificate.*
+   c. To verify that you're logged in and using the correct account, you can run:
 
-**Example:** “This deployment requires you have public ACM certificate available in your AWS account”
+   ```
+   aws sts get-caller-identity
+   ```
 
-**Example resources:**
-- ACM certificate 
-- DNS record
-- S3 bucket
-- VPC
-- IAM role with specific permissions
-- Enabling a Region or service etc.
+   This will display your account ID, user ID, and ARN.
 
+For more detailed information on configuring and using the AWS CLI, refer to the following AWS documentation:
 
-### aws cdk bootstrap (if sample code has aws-cdk)
+- [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+- [Using named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+- [Setting environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 
-<If using aws-cdk, include steps for account bootstrap for new cdk users.>
+If you're new to AWS CLI or need to install it, you can find installation instructions here:
+[Installing or updating the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-**Example blurb:** “This Guidance uses aws-cdk. If you are using aws-cdk for first time, please perform the below bootstrapping....”
+6. Add your environment config to **cdk.json**. Example:
 
-### Service limits  (if applicable)
+```json
+    "dev-env01": {
+      "AwsAccountId": "123456789012",
+      "AwsRegion": "us-west-2",
+      "BedrockRegion": "us-west-2",
+      "AppName": "DeepracerModelEvaluator",
+      "Environment": "dev"
+    }
+```
 
-<Talk about any critical service limits that affect the regular functioning of the Guidance. If the Guidance requires service limit increase, include the service name, limit name and link to the service quotas page.>
+7. Run `make bootstrap config=<context>` (if the account/region isn't already bootstrapped)
+8. Run `make all config=<context>`
+9. From the deployment outputs, take note of the `WebsiteUserInterfaceDomainName`
 
-### Supported Regions (if applicable)
+## Deployment Validation
 
-<If the Guidance is built for specific AWS Regions, or if the services used in the Guidance do not support all Regions, please specify the Region this Guidance is best suited for>
+To validate the deployment:
 
+1. Check the AWS CloudFormation console to ensure the stack has been created successfully.
+2. Verify that all resources in the stack show a status of "CREATE_COMPLETE" (all green).
+3. Run `make test config=<context>` to perform CDK-Nag checks.
 
-## Deployment Steps (required)
+## Running the Guidance
 
-Deployment steps must be numbered, comprehensive, and usable to customers at any level of AWS expertise. The steps must include the precise commands to run, and describe the action it performs.
+1. Register a new user to Cognito user pool inside the AWS Console
+2. Add registered user to the "Users" group within the user pool
+3. Visit the `WebsiteUserInterfaceDomainName` from deployment outputs
+4. Login to the platform using the registered user
+5. Follow guidance within help panels for each chatbot function
 
-* All steps must be numbered.
-* If the step requires manual actions from the AWS console, include a screenshot if possible.
-* The steps must start with the following command to clone the repo. ```git clone xxxxxxx```
-* If applicable, provide instructions to create the Python virtual environment, and installing the packages using ```requirement.txt```.
-* If applicable, provide instructions to capture the deployed resource ARN or ID using the CLI command (recommended), or console action.
+## Next Steps
 
- 
-**Example:**
+After successfully deploying and running the AWS DeepRacer chatbot, you can consider the following steps to further enhance and customize the solution according to your specific requirements:
 
-1. Clone the repo using command ```git clone xxxxxxxxxx```
-2. cd to the repo folder ```cd <repo-name>```
-3. Install packages in requirements using command ```pip install requirement.txt```
-4. Edit content of **file-name** and replace **s3-bucket** with the bucket name in your account.
-5. Run this command to deploy the stack ```cdk deploy``` 
-6. Capture the domain name created by running this CLI command ```aws apigateway ............```
+1. Update web interface to use custom branding
+2. Create and test models in the AWS Console developed from the chatbot
+3. Update chatbot chains within `/lib/bedrock-integration-resolver-py/function/chains` to change how the interface interacts with Amazon Bedrock
 
+## Cleanup
 
+To remove all resources created by this guidance, follow these steps:
 
-## Deployment Validation  (required)
+1. Ensure you are in the project root directory.
+2. Run the following command, replacing `<context>` with the appropriate context name used during deployment:
+   ```
+   make destroy config=<context>
+   ```
+3. Wait for the CloudFormation stack deletion to complete. You can monitor the progress in the AWS CloudFormation console.
+4. Once the stack is deleted, verify in the AWS Console that all associated resources have been removed.
 
-<Provide steps to validate a successful deployment, such as terminal output, verifying that the resource is created, status of the CloudFormation template, etc.>
+Note: If you have stored any data in resources created by this guidance (e.g., S3 buckets), you may need to manually delete this data before running the destroy command.
 
+## FAQ, known issues, additional considerations, and limitations
 
-**Examples:**
+Known issues and limitations:
 
-* Open CloudFormation console and verify the status of the template with the name starting with xxxxxx.
-* If deployment is successful, you should see an active database instance with the name starting with <xxxxx> in        the RDS console.
-*  Run the following CLI command to validate the deployment: ```aws cloudformation describe xxxxxxxxxxxxx```
+- Amazon Bedrock has [usage quotas](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html) (request per minute / tokens processed per minute) which for Anthropic Claude 3.5 Sonnet can be hit if multiple users are accessing the solution at the same time. Be aware of these limits, and for guaranteed throughput we recommend [Provisioned Throughput](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html)
 
+## Revisions
 
+| Version | Date     |
+| ------- | -------- |
+| 1.0     | DATE-TBC |
 
-## Running the Guidance (required)
+## Notices
 
-<Provide instructions to run the Guidance with the sample data or input provided, and interpret the output received.> 
+Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided "as is" without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.
 
-This section should include:
+## Authors
 
-* Guidance inputs
-* Commands to run
-* Expected output (provide screenshot if possible)
-* Output description
-
-
-
-## Next Steps (required)
-
-Provide suggestions and recommendations about how customers can modify the parameters and the components of the Guidance to further enhance it according to their requirements.
-
-
-## Cleanup (required)
-
-- Include detailed instructions, commands, and console actions to delete the deployed Guidance.
-- If the Guidance requires manual deletion of resources, such as the content of an S3 bucket, please specify.
-
-
-
-## FAQ, known issues, additional considerations, and limitations (optional)
-
-
-**Known issues (optional)**
-
-<If there are common known issues, or errors that can occur during the Guidance deployment, describe the issue and resolution steps here>
-
-
-**Additional considerations (if applicable)**
-
-<Include considerations the customer must know while using the Guidance, such as anti-patterns, or billing considerations.>
-
-**Examples:**
-
-- “This Guidance creates a public AWS bucket required for the use-case.”
-- “This Guidance created an Amazon SageMaker notebook that is billed per hour irrespective of usage.”
-- “This Guidance creates unauthenticated public API endpoints.”
-
-
-Provide a link to the *GitHub issues page* for users to provide feedback.
-
-
-**Example:** *“For any feedback, questions, or suggestions, please use the issues tab under this repo.”*
-
-## Revisions (optional)
-
-Document all notable changes to this project.
-
-Consider formatting this section based on Keep a Changelog, and adhering to Semantic Versioning.
-
-## Notices (optional)
-
-Include a legal disclaimer
-
-**Example:**
-*Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
-
-
-## Authors (optional)
-
-Name of code contributors
+- Johan Esbjörner
+- Steven Askwith
+- Chris Scudder
+- Anton Lukin
+- Talha Chattha
