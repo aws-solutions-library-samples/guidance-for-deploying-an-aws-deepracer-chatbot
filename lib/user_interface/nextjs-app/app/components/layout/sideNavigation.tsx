@@ -8,7 +8,8 @@ import { useCallback, useMemo } from "react";
 import { GetModelsQuery } from "../../API";
 import { useModels } from "../../hooks/useModel";
 
-const DEFAULT_ITEMS: NonNullable<SideNavigationProps["items"]> = [
+// Navigation configuration
+const DEFAULT_ITEMS: SideNavigationProps["items"] = [
   { type: "link", text: "Home", href: "/" },
   { type: "divider" },
   {
@@ -33,32 +34,38 @@ const DEFAULT_ITEMS: NonNullable<SideNavigationProps["items"]> = [
   { type: "divider" },
 ];
 
+// Helper function to generate model navigation items
 const getModelItems = (
   models: GetModelsQuery["getModels"]
-): SideNavigationProps.Item[] => [
-  ...DEFAULT_ITEMS,
-  {
-    type: "section-group",
-    title: "Available models",
-    items:
-      models
-        ?.filter((model) => model?.status !== "error")
-        .map((model) => ({
-          type: "link",
-          text: model?.modelName ?? "",
-          href: `""`,
-        })) ?? [],
-  },
-];
+): SideNavigationProps["items"] => {
+  const availableModels =
+    models
+      ?.filter((model) => model?.status !== "error")
+      .map((model) => ({
+        type: "link" as const,
+        text: model?.modelName ?? "",
+        href: `/models/${model?.modelName}`, // Added proper link structure
+      })) ?? [];
+
+  return [
+    ...DEFAULT_ITEMS,
+    {
+      type: "section-group",
+      title: "Available models",
+      items: availableModels,
+    },
+  ];
+};
 
 export default function SideNavigationWrapper() {
   const router = useRouter();
   const pathname = usePathname();
   const { models } = useModels();
 
-  console.info(models);
+  // Generate navigation items
   const items = useMemo(() => getModelItems(models), [models]);
 
+  // Handle navigation
   const handleFollow = useCallback(
     (event: CustomEvent<SideNavigationProps.FollowDetail>) => {
       if (!event.detail.external) {

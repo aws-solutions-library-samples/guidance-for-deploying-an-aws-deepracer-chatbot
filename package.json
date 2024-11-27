@@ -1,6 +1,6 @@
 {
   "name": "deepracer-model-evaluator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "bin": {
     "deepracer-model-evaluator": "bin/deepracer-model-evaluator.js"
   },
@@ -9,11 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "generate-api-spec": "pushd ./lib/user_interface/nextjs-app/ && amplify codegen && popd",
-    "fe-run-dev": "pushd ./lib/user_interface/nextjs-app && npm run dev && popd",
-    "dev-deploy": "./scripts_n_helpers/build/aws-exports.sh dev && pushd ./lib/user_interface/nextjs-app && npm install && npm run build && popd && cdk deploy -c config=dev --profile app-a",
-    "dev-deploy-be": "cdk deploy -c config=dev --profile app-a && ./scripts_n_helpers/build/aws-exports.sh dev",
-    "prod-deploy": "./scripts_n_helpers/build/aws-exports.sh prod && pushd ./lib/user_interface/nextjs-app && npm install && npm run build && popd && cdk deploy -c config=prod --profile app-a",
-    "prod-deploy-be": "cdk deploy -c config=prod --profile app-a && ./scripts_n_helpers/build/aws-exports.sh prod"
+    "fe-run-dev": "pushd ./lib/user_interface/nextjs-app && npm run dev && popd"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.125",

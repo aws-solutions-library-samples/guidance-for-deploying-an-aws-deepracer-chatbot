@@ -20,7 +20,11 @@ import {
 import { sendMessage } from "../../graphql/mutations";
 import useImageProcessing from "../../hooks/useImageProcessing";
 import useSubscription from "../../hooks/useSubscription";
-import { chatReducer, initialChatState } from "../../reducers/chatReducer";
+import {
+  ChatActionType,
+  chatReducer,
+  initialChatState,
+} from "../../reducers/chatReducer";
 import FileSelectorButton from "./FileSelectorButton";
 import ThumbnailList from "./ThumbnailList";
 
@@ -70,7 +74,10 @@ const ChatSendMessage: FC<Props> = ({
     async (uploadedNewFiles: File[]) => {
       const result: { thumbnails: string[]; imageInputs: ImageContentInput[] } =
         await processImages(uploadedNewFiles);
-      dispatch({ type: "SET_THUMBNAILS_AND_INPUTS", payload: result });
+      dispatch({
+        type: ChatActionType.SET_THUMBNAILS_AND_INPUTS,
+        payload: result,
+      });
     },
     [processImages]
   );
@@ -78,7 +85,7 @@ const ChatSendMessage: FC<Props> = ({
   const handleSendMessage = useCallback(async () => {
     if (!messageToSend) return;
 
-    dispatch({ type: "SET_SEND_BUTTON_DISABLED", payload: true });
+    dispatch({ type: ChatActionType.SET_SEND_BUTTON_DISABLED, payload: true });
     onWaitingReply(true);
 
     const content = [
@@ -125,12 +132,15 @@ const ChatSendMessage: FC<Props> = ({
         console.error(response.errorMessage);
       }
 
-      dispatch({ type: "RESET_MESSAGE_STATE" });
+      dispatch({ type: ChatActionType.RESET_MESSAGE_STATE });
       clearImages();
     } catch (error) {
       console.error(error);
     } finally {
-      dispatch({ type: "SET_SEND_BUTTON_DISABLED", payload: false });
+      dispatch({
+        type: ChatActionType.SET_SEND_BUTTON_DISABLED,
+        payload: false,
+      });
     }
   }, [
     messageToSend,
@@ -144,11 +154,6 @@ const ChatSendMessage: FC<Props> = ({
     onWaitingReply,
     user.userId,
   ]);
-
-  // const handleClearMessages = useCallback(() => {
-  //   onClearMessages();
-  //   dispatch({ type: "RESET_ALL" });
-  // }, [onClearMessages]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -176,7 +181,10 @@ const ChatSendMessage: FC<Props> = ({
     <div className="footerblock">
       <Textarea
         onChange={({ detail }) =>
-          dispatch({ type: "SET_MESSAGE_TO_SEND", payload: detail.value })
+          dispatch({
+            type: ChatActionType.SET_MESSAGE_TO_SEND,
+            payload: detail.value,
+          })
         }
         value={messageToSend}
         autoFocus={true}
@@ -188,7 +196,7 @@ const ChatSendMessage: FC<Props> = ({
             e.preventDefault();
             handleSendMessage();
           } else if (e.detail.key === "Enter" && e.detail.shiftKey) {
-            dispatch({ type: "INCREMENT_ROWS" });
+            dispatch({ type: ChatActionType.INCREMENT_ROWS });
           }
         }}
         ref={inputRef}
