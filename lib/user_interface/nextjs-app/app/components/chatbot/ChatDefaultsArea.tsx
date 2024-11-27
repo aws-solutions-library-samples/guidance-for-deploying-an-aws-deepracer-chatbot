@@ -1,27 +1,41 @@
-import { Container, Grid, SpaceBetween, Link, CopyToClipboard } from "@cloudscape-design/components";
+import {
+  CopyToClipboard,
+  Grid,
+  SpaceBetween,
+} from "@cloudscape-design/components";
 import React, { useMemo, useReducer, useState } from "react";
-import { chatReducer, initialChatState } from "../../reducers/chatReducer";
+import {
+  ChatActionType,
+  chatReducer,
+  initialChatState,
+} from "../../reducers/chatReducer";
 import styles from "./ChatDefaultsArea.module.css";
 
 const PromptBox: React.FC<{ item: String }> = React.memo(({ item }) => {
-    const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
-    const { messageToSend } = chatState;
-    const [copySuccess, setCopySuccess] = useState('');
-    const [copyShow, setCopyShow] = React.useState(false);
+  const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
+  const { messageToSend } = chatState;
+  const [copySuccess, setCopySuccess] = useState("");
+  const [copyShow, setCopyShow] = React.useState(false);
 
-    function prompt_change(item: String) {
-        dispatch({ type: "SET_MESSAGE_TO_SEND", payload: item.toString() })
-    }
+  function prompt_change(item: String) {
+    dispatch({
+      type: ChatActionType.SET_MESSAGE_TO_SEND,
+      payload: item.toString(),
+    });
+  }
   return (
-        <div>
-            <div onClick={() => prompt_change(item)}><CopyToClipboard
-              copyButtonText="Copy"
-              copyErrorText="Failed to copy prompt"
-              copySuccessText="Prompt copied"
-              textToCopy={item.toString()}
-              variant="icon"
-            />{item}</div>
-        </div>
+    <div>
+      <div onClick={() => prompt_change(item)}>
+        <CopyToClipboard
+          copyButtonText="Copy"
+          copyErrorText="Failed to copy prompt"
+          copySuccessText="Prompt copied"
+          textToCopy={item.toString()}
+          variant="icon"
+        />
+        {item}
+      </div>
+    </div>
   );
 });
 
@@ -30,17 +44,18 @@ const ChatDefaultsArea: React.FC<{
   display: boolean;
 }> = ({ prompts, display }) => {
   const mappedPrompts = useMemo(
-    () =>
-    prompts.map((item) => <PromptBox key={item} item={item} />),
+    () => prompts.map((item) => <PromptBox key={item} item={item} />),
     [prompts]
-  ); 
+  );
 
   return (
     <SpaceBetween size="l" direction="vertical">
       {display && (
         <div>
           <p className={styles.example_prompts}>Example prompts</p>
-          <Grid gridDefinition={[{ colspan: 4 },{ colspan: 4 },{ colspan: 4 }]}>
+          <Grid
+            gridDefinition={[{ colspan: 4 }, { colspan: 4 }, { colspan: 4 }]}
+          >
             {mappedPrompts}
           </Grid>
         </div>

@@ -1,40 +1,61 @@
-'use client'
+"use client";
 
-import BreadcrumbGroup, { BreadcrumbGroupProps } from '@cloudscape-design/components/breadcrumb-group';
-import { usePathname, useRouter } from 'next/navigation';
+import BreadcrumbGroup, {
+  BreadcrumbGroupProps,
+} from "@cloudscape-design/components/breadcrumb-group";
+import { usePathname, useRouter } from "next/navigation";
+
+interface BreadcrumbItem {
+  text: string;
+  href: string;
+}
 
 export interface BreadcrumbsProps {
   active: BreadcrumbGroupProps.Item;
 }
 
-function createBreadCrumbsFromPathname(pathname: string) {
-  const items = [];
-  const slicedPathname = pathname.slice(1);
-  let segments = slicedPathname.split("/");
-  segments = segments.map((i) => "/" + i);
-  items.push({ text: "Home", href: "/" });
-  let urlStem = "";
-  segments.forEach((i) => {
-    urlStem = urlStem + i;
-    // Capitol first letter
-    let text = i.charAt(1).toUpperCase() + i.slice(2);
-    // let text = i.slice(1);
-    items.push({
-      text: text,
-      href: urlStem,
-    });
-  });
-  return items;
-}
+const formatPathSegment = (segment: string): string => {
+  if (!segment) return "";
+  return segment.charAt(1).toUpperCase() + segment.slice(2);
+};
 
-export default function Breadcrumbs() {
-  const router = useRouter()
-
-  function followLink(e: CustomEvent) {
-    e.preventDefault();
-    router.push(e.detail.href);
+const createBreadCrumbsFromPathname = (pathname: string): BreadcrumbItem[] => {
+  // Handle empty or root pathname
+  if (!pathname || pathname === "/") {
+    return [{ text: "Home", href: "/" }];
   }
 
-  const items = createBreadCrumbsFromPathname(usePathname());
-  return <BreadcrumbGroup items={items} onFollow={followLink}/>;
+  const items: BreadcrumbItem[] = [{ text: "Home", href: "/" }];
+  const segments = pathname
+    .slice(1) // Remove leading slash
+    .split("/") // Split into segments
+    .map((segment) => `/${segment}`); // Add slash back to each segment
+
+  return segments.reduce(
+    (acc: BreadcrumbItem[], segment: string, index: number) => {
+      const urlPath = segments.slice(0, index + 1).join("");
+      acc.push({
+        text: formatPathSegment(segment),
+        href: urlPath,
+      });
+      return acc;
+    },
+    items
+  );
+};
+
+export default function Breadcrumbs(): JSX.Element {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNavigation = (e: CustomEvent): void => {
+    e.preventDefault();
+    router.push(e.detail.href);
+  };
+
+  const breadcrumbItems = createBreadCrumbsFromPathname(pathname);
+
+  return (
+    <BreadcrumbGroup items={breadcrumbItems} onFollow={handleNavigation} />
+  );
 }
