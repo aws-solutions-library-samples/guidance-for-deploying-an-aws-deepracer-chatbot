@@ -2,3 +2,4 @@ boto3==1.34.158
 faiss-cpu==1.8.0
 packaging==24.1
 numpy==1.26.4
+RapidFuzz==3.10.1

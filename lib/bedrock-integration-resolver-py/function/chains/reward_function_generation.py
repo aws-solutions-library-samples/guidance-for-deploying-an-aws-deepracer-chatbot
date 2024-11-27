@@ -7,6 +7,7 @@ from knowledge_base.output_converters import to_converse_api_content
 from utils.converse_stream import (
     BedrockStream,
     MessageProcessor,
+    ToolProcessor,
     from_bedrock_converse_to_bedrock_invoke,
 )
 
@@ -63,9 +64,11 @@ def invoke(
     bedrock_model: BedrockStream,
     message_processor: MessageProcessor,
     chat_history: List[Dict[str, str]],
+    tool_processor: ToolProcessor,
     knowledge_base: Callable = None,
     reward_function_examples_db: Callable = None,
     stream_callback: Callable[[str], None] = None,
+    max_tool_iterations: int = 3,  # Add a maximum number of iterations
 ) -> dict:
     """
     Handle the questions and answers flow.
@@ -124,12 +127,44 @@ def invoke(
     print("\n Messages to send to Bedrock, which will be passed to the LLM:")
     pprint(isolated_chat_history)
 
-    # Invoke LLM model to start the completion stream
-    stream = bedrock_model(messages=isolated_chat_history, system_prompt=system_prompt)
+    final_assistant_message = None
 
-    # Process the Bedrock event stream and stream the text output to the stream_callback function
-    print("\n Streaming responses from Bedrock:")
-    assistant_message = message_processor.process_stream(stream, stream_callback)
+    try:
+        for _ in range(max_tool_iterations):
 
-    # Return the final assistant message
-    return assistant_message
+            logger.info(f"Invoke LLM for an answer or to get a toolUse request back:")
+            stream = bedrock_model(
+                messages=isolated_chat_history,
+                system_prompt=system_prompt,
+                tool_list=tool_processor.get_tools(),
+            )
+
+            assistant_message = message_processor.process_stream(
+                events=stream, stream_callback=stream_callback
+            )
+            print(f"Assistant message: {assistant_message}")
+            isolated_chat_history.append(assistant_message)
+
+            print(f"\nProcess Tool requests:")
+            tool_results = tool_processor.process_tool_requests(
+                assistant_message["content"]
+            )
+
+            if tool_results:
+                user_message = {"role": "user", "content": tool_results}
+                print(f"Tool results: {user_message}")
+                isolated_chat_history.append(user_message)
+            else:
+                print(f"No tools to process, finishing...")
+                final_assistant_message = assistant_message
+                break
+
+        if final_assistant_message is None:
+            print(f"Reached maximum iterations without completion.")
+            final_assistant_message = assistant_message
+
+        return final_assistant_message
+
+    except Exception as e:
+        print(f"Error in model evaluation: {e}")
+        raise
