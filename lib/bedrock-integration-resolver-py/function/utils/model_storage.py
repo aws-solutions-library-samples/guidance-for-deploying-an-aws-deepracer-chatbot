@@ -51,7 +51,7 @@ class ModelStorage:
 
             return updated_item
         except ClientError as e:
-            print("Error storing model in DynamoDB", e)
+            logger.exception("Error storing model in DynamoDB", e)
 
     def get_model(self, user_id: str, model_name: str):
         """
@@ -79,7 +79,7 @@ class ModelStorage:
             logger.info(f"No model found for user {user_id} with name {model_name}")
             return None
         except ClientError as e:
-            print(f"Error fetching item from DynamoDB: {e}")
+            logger.exception(f"Error fetching item from DynamoDB: {e}")
             raise
 
     def list_models(self, user_id: str) -> dict:
@@ -115,5 +115,5 @@ class ModelStorage:
             return {"Models": processed_models}
 
         except Exception as e:
-            print(f"Error listing models: {e}")
+            logger.exception(f"Error listing models: {e}")
             return {"Error": f"Error listing models: {e}"}

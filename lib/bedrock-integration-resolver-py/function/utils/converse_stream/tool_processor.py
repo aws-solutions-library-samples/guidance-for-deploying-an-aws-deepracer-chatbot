@@ -33,7 +33,15 @@ class ToolProcessor:
             }
         )
         logger.info(f"Registered tool: {name}")
-        print(f"Registered tools: {self.tool_specs}")
+
+    def get_tools(self) -> Dict[str, Any]:
+        """
+        Get the registered tool specs for use with the Bedrock Stream Class.
+
+        Returns:
+            Dict[str, Any]: The tool configuration.
+        """
+        return self.tool_specs
 
     def invoke_tool(self, name: str, input_data: Dict[str, Any]) -> Any:
         """
@@ -50,9 +58,13 @@ class ToolProcessor:
             ValueError: If the tool is not found.
         """
         if name not in self.tools:
+            logger.error(f"Tool not found: {name}")
             raise ValueError(f"Tool not found: {name}")
 
         try:
+            logger.info(
+                f"Invoking tool {name} with input", extra={"input_data": input_data}
+            )
             result = self.tools[name](**input_data)
             return result
         except Exception as e:
@@ -113,12 +125,3 @@ class ToolProcessor:
             tool_results = self.process_tool_requests(message["content"])
             message["toolResults"] = tool_results
         return message
-
-    def get_tools(self) -> Dict[str, Any]:
-        """
-        Get the registered tool specs for use with the Bedrock Stream Class.
-
-        Returns:
-            Dict[str, Any]: The tool configuration.
-        """
-        return self.tool_specs

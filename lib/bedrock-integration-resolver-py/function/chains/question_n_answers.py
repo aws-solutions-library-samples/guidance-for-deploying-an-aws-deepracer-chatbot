@@ -1,5 +1,4 @@
 import copy
-from pprint import pprint
 from typing import Any, Callable, Dict, List
 
 from aws_lambda_powertools import Logger
@@ -86,23 +85,27 @@ def invoke(
 
     # Convert the knowledge base output into Bedrock converse message format
     results = to_converse_api_content(rag_content)
-    print("\nReturned documents from the knowledge base:")
-    pprint(results)
+    logger.info(
+        "\nReturned documents from the knowledge base", extra={"results": results}
+    )
 
     # Extend the content with the RAG results to maintain a flat structure
     user_message["content"].extend(results)
-    print("\n User message with appended RAG content:")
-    pprint(user_message)
+    logger.info(
+        "\n User message with appended RAG content:",
+        extra={"user_message": user_message},
+    )
     isolated_chat_history[-1] = user_message
 
-    print("\n Messages to send to Bedrock, which will be passed to the LLM:")
-    pprint(isolated_chat_history)
+    logger.info(
+        "\n Messages to send to Bedrock, which will be passed to the LLM:",
+        extra={"isolated_chat_history": isolated_chat_history},
+    )
 
     # Invoke LLM model to start the completion stream
     stream = bedrock_model(messages=isolated_chat_history, system_prompt=system_prompt)
 
     # Process the Bedrock event stream and stream the text output to the stream_callback function
-    print("\n Streaming responses from Bedrock:")
     assistant_message = message_processor.process_stream(stream, stream_callback)
 
     # Return the final assistant message

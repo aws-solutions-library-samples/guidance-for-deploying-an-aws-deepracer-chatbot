@@ -74,14 +74,13 @@ def invoke(
 
     # Isolate the chat_history so we can add RAG content to the array without adding persisting the results in the session store later on.
     isolated_chat_history = copy.copy(chat_history)
-    print(f"Isolated chat history: {isolated_chat_history}")
+    logger.info(f"Isolated chat history: {isolated_chat_history}")
 
     final_assistant_message = None
 
     try:
         for _ in range(max_tool_iterations):
 
-            print(f"\nInvoke LLM for an answer or to get a toolUse request back:")
             stream = bedrock_model(
                 messages=isolated_chat_history,
                 system_prompt=system_prompt,
@@ -91,29 +90,28 @@ def invoke(
             assistant_message = message_processor.process_stream(
                 events=stream, stream_callback=stream_callback
             )
-            print(f"Assistant message: {assistant_message}")
+            logger.info(f"Assistant message: {assistant_message}")
             isolated_chat_history.append(assistant_message)
 
-            print(f"\nProcess Tool requests:")
             tool_results = tool_processor.process_tool_requests(
                 assistant_message["content"]
             )
 
             if tool_results:
                 user_message = {"role": "user", "content": tool_results}
-                print(f"Tool results: {user_message}")
+                logger.info(f"Tool results", extra={"tool_results": tool_results})
                 isolated_chat_history.append(user_message)
             else:
-                print(f"No tools to process, finishing...")
+                logger.info(f"No tools to process, finishing...")
                 final_assistant_message = assistant_message
                 break
 
         if final_assistant_message is None:
-            print(f"Reached maximum iterations without completion.")
+            logger.error(f"Reached maximum iterations without completion.")
             final_assistant_message = assistant_message
 
         return final_assistant_message
 
     except Exception as e:
-        print(f"Error in model evaluation: {e}")
+        logger.exception(f"Error in model evaluation: {e}")
         raise

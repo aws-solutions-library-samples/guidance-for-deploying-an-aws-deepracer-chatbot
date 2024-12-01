@@ -1,5 +1,4 @@
 import copy
-from pprint import pprint
 from typing import Any, Callable, Dict, List
 
 from aws_lambda_powertools import Logger
@@ -41,7 +40,6 @@ Always focus on the mandatory user input as your primary goal. Use any provided 
     - Speed range: Minimum (0.1 to 4 m/s), Maximum (0.1 to 4 m/s)
 - Keep the reward function computationally efficient by limiting complex mathematical operations.
 - Use only the provided input parameters in the reward function.
-- Keep the reward function size within AWS DeepRacer's limits.
 
 
 <output_process>
@@ -93,8 +91,10 @@ def invoke(
 
     # The Embedding model use the Bedrock invoke API, so we need to convert the content from converse API format to the bedrock invoke API format
     bedrock_invoke_formatted_content = from_bedrock_converse_to_bedrock_invoke(content)
-    print("\n Bedrock Invoke formatted content:")
-    print(bedrock_invoke_formatted_content)
+    logger.info(
+        "Bedrock Invoke formatted content:",
+        extra={"bedrock_invoke_formatted_content": bedrock_invoke_formatted_content},
+    )
 
     # Perform similarity search and retrieve the top 3 similar documents and images
     rag_content = knowledge_base.similarity_search(
@@ -114,25 +114,30 @@ def invoke(
     reward_function_examples_as_content = to_converse_api_content(
         query_results=reward_function_examples, content_type="examples"
     )
-    print("\nReturned reward function examples from the knowledge base:")
-    pprint(reward_function_examples_as_content)
+    logger.info(
+        "Returned reward function examples from the knowledge base:",
+        extra={"results": reward_function_examples_as_content},
+    )
 
     # Extend the content with the RAG results to maintain a flat structure
-    user_message["content"].extend(results)
+    #    user_message["content"].extend(results)
     user_message["content"].extend(reward_function_examples_as_content)
-    print("\n User message with appended RAG content & reward function examples:")
-    pprint(user_message)
+    logger.info(
+        "User message with appended RAG content & reward function examples:",
+        extra={"user_message": user_message},
+    )
     isolated_chat_history[-1] = user_message
 
-    print("\n Messages to send to Bedrock, which will be passed to the LLM:")
-    pprint(isolated_chat_history)
+    logger.info(
+        "Messages to send to Bedrock, which will be passed to the LLM:",
+        extra={"isolated_chat_history": isolated_chat_history},
+    )
 
     final_assistant_message = None
 
     try:
         for _ in range(max_tool_iterations):
 
-            logger.info(f"Invoke LLM for an answer or to get a toolUse request back:")
             stream = bedrock_model(
                 messages=isolated_chat_history,
                 system_prompt=system_prompt,
@@ -142,29 +147,30 @@ def invoke(
             assistant_message = message_processor.process_stream(
                 events=stream, stream_callback=stream_callback
             )
-            print(f"Assistant message: {assistant_message}")
+            logger.info(
+                f"Assistant message:", extra={"assistant_message": assistant_message}
+            )
             isolated_chat_history.append(assistant_message)
 
-            print(f"\nProcess Tool requests:")
             tool_results = tool_processor.process_tool_requests(
                 assistant_message["content"]
             )
 
             if tool_results:
                 user_message = {"role": "user", "content": tool_results}
-                print(f"Tool results: {user_message}")
+                logger.info(f"Tool results:", extra={"tool_results": tool_results})
                 isolated_chat_history.append(user_message)
             else:
-                print(f"No tools to process, finishing...")
+                logger.info(f"No tools to process, finishing...")
                 final_assistant_message = assistant_message
                 break
 
         if final_assistant_message is None:
-            print(f"Reached maximum iterations without completion.")
+            logger.error(f"Reached maximum iterations without completion.")
             final_assistant_message = assistant_message
 
         return final_assistant_message
 
     except Exception as e:
-        print(f"Error in model evaluation: {e}")
+        logger.exception(f"Error in model evaluation: {e}")
         raise

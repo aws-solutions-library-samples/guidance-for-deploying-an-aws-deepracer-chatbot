@@ -77,7 +77,7 @@ class BedrockStream:
         )
 
         try:
-            logger.debug(
+            logger.info(
                 "Calling Bedrock model with stream output",
                 extra={"body": converse_kwargs},
             )
