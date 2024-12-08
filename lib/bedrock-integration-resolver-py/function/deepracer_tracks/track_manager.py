@@ -36,7 +36,7 @@ class TrackManager:
         raw_url = url.replace("github.com", "raw.githubusercontent.com").replace(
             "/blob/", "/"
         )
-
+        logger.info(f"Loading waypoints numpy array from {raw_url}")
         try:
             response = requests.get(raw_url)
             response.raise_for_status()
@@ -44,8 +44,10 @@ class TrackManager:
             content = io.BytesIO(response.content)
             return np.load(content, allow_pickle=True)
         except requests.RequestException as e:
+            logger.error(f"Failed to download file: {e}")
             raise Exception(f"Failed to download file: {e}")
         except Exception as e:
+            logger.error(f"Error loading numpy array: {e}")
             raise Exception(f"Error loading numpy array: {e}")
 
     @staticmethod
@@ -86,23 +88,33 @@ class TrackManager:
 
             # Load waypoints if available
             waypoints = "unknown"
-            if "waypointNpy" in track_info:
-                waypoint_npy = self._load_numpy_from_github(track_info["waypointNpy"])
-                waypoints = waypoint_npy.tolist()
+            if "Waypoints" in track_info:
+                return track_info
+            elif "WaypointsNpy" in track_info:
+                try:
+                    waypoint_npy = self._load_numpy_from_github(
+                        track_info["WaypointsNpy"]
+                    )
+                    waypoints = waypoint_npy.tolist()
+                except Exception as e:
+                    logger.error(f"Error loading waypoints: {e}")
 
-            track_info.update(
-                {
-                    "waypoints": waypoints,
-                    "waypointsDescription": (
-                        "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], "
-                        "An ordered list of track-dependent Max milestones along the track center. "
-                        "Each milestone is described by a coordinate of (xw,i, yw,i). "
-                        "For a looped track, the first and last waypoints are the same. "
-                        "For a straight or other non-looped track, the first and last waypoints are different."
-                    ),
-                }
+                track_info.update(
+                    {
+                        "Waypoints": waypoints,
+                        "WaypointsDescription": (
+                            "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], "
+                            "An ordered list of track-dependent Max milestones along the track center. "
+                            "Each milestone is described by a coordinate of (xw,i, yw,i). "
+                            "For a looped track, the first and last waypoints are the same. "
+                            "For a straight or other non-looped track, the first and last waypoints are different."
+                        ),
+                    }
+                )
+            logger.info(
+                f"Returning track info for {track_name}",
+                extra={"track": track_info},
             )
-
             return track_info
 
         except Exception as e:

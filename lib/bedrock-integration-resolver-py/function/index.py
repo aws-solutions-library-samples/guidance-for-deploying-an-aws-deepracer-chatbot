@@ -152,7 +152,7 @@ def sendMessage(chatbotVariant: str, sessionId: str, content):
 
             tool_processor.register_tool(
                 name="get_deepracer_track",
-                description="Get information about a DeepRacer track and it´s corresponding waypoints (if available)",
+                description="Get information about a DeepRacer track including it´s waypoints and the coordinates for the optimal race line. (if available)",
                 input_schema={
                     "type": "object",
                     "properties": {
