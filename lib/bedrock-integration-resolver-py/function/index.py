@@ -55,7 +55,7 @@ vector_store_kb = FaissVectorStore.load(
 # Initiate the reward function examples vector store
 peristant_directory_faiss_reward_functions = "knowledge_base/reward_function_examples"
 vector_store_reward_functions = FaissVectorStore.load(
-    directory_path=persistant_directory_faiss_knowledge_base,
+    directory_path=peristant_directory_faiss_reward_functions,
     embedding_function=embeddings,
 )
 

@@ -38,23 +38,18 @@ Always focus on the mandatory user input as your primary goal. Use any provided 
 - Consider the chosen action space when designing the reward function, adhering to these constraints:
     - Steering angle range: Left turn (0 to 30 degrees), Right turn (-30 to 0 degrees)
     - Speed range: Minimum (0.1 to 4 m/s), Maximum (0.1 to 4 m/s)
+- A discount factor hyper parameter value that has proven to good for DeepRacer is: 0.95
 - Keep the reward function computationally efficient by limiting complex mathematical operations.
-- Use only the provided input parameters in the reward function.
-
-
-<output_process>
-- Analyze the given information and plan how to generate a reward function that fits the user's criteria. Include your reasoning for parameter values in the "thought" element.
-- Generate the reward function in Python using Markdown format. Output this in the "answer" element.
-- Provide a concise explanation of the new or improved reward function, suitable for beginners, in the "explanation" element.
+- if no track name is provided assume it is the re:Invent 2018 track
+- Study the correlation between specific driving behaviors (e.g., staying centered, taking optimal racing lines, maintaining speed in turns) and the rewards given.
+- Ensure that desired behaviors are consistently and appropriately rewarded.
+- if adding Optimal racing line (pre-computed) coordinates, all of them need to be provided, else the reward function is not valid python. Do not truncated for brevity.
+- If you need more information to complete the task and do not see that using one of the provided tools will solve it. Ask the user to clarify their intentions.
+- Do not state the name of the tools you have access to or is using to get data.
+- any import of python modules shall be before the 'def reward_function(params):' line
 
 <output_format>
-Always follow this VALID JSON output format:
-{
-"thought": "Your analysis and reasoning",
-"answer": "Generated reward function in Python (Markdown format)",
-"explanation": "Beginner-friendly explanation of the function"
-}
-</output_format>
+- Analyze the given information and briefly explain to the user how you plan to generate a reward function that fits the user's criteria.
 """
 
 
@@ -161,7 +156,10 @@ def invoke(
                 logger.info(f"Tool results:", extra={"tool_results": tool_results})
                 isolated_chat_history.append(user_message)
             else:
-                logger.info(f"No tools to process, finishing...")
+                logger.info(
+                    f"No tools to process, finishing...",
+                    extra={"final_assistant_message": assistant_message},
+                )
                 final_assistant_message = assistant_message
                 break
 
