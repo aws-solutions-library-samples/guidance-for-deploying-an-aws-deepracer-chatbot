@@ -9,6 +9,9 @@
     "TrackDifficulty": 10,
     "TrackLength": 33.27,
     "TrackName": "2022 re:Invent Championship",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1664557200000,
     "TrackUsageCount": 256,
     "TrackWidth": 0.95
@@ -23,6 +26,9 @@
     "TrackDifficulty": 40,
     "TrackLength": 62.08,
     "TrackName": "Jennens Super Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1664557200000,
     "TrackUsageCount": 38,
     "TrackWidth": 1.07
@@ -37,6 +43,9 @@
     "TrackDifficulty": 40,
     "TrackLength": 49.57,
     "TrackName": "Jennens Family Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1664557200000,
     "TrackUsageCount": 11,
     "TrackWidth": 1.07
@@ -51,6 +60,9 @@
     "TrackDifficulty": 70,
     "TrackLength": 60.18,
     "TrackName": "Roger Super Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1661990400000,
     "TrackUsageCount": 134,
     "TrackWidth": 106.68
@@ -65,6 +77,9 @@
     "TrackDifficulty": 40,
     "TrackLength": 45.3,
     "TrackName": "Roger Ring",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1661990400000,
     "TrackUsageCount": 32,
     "TrackWidth": 106.68
@@ -79,6 +94,9 @@
     "TrackDifficulty": 68,
     "TrackLength": 63.88,
     "TrackName": "Jochem Highway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1659312000000,
     "TrackUsageCount": 52,
     "TrackWidth": 106.68
@@ -93,6 +111,9 @@
     "TrackDifficulty": 30,
     "TrackLength": 43.31,
     "TrackName": "Jochem Turnpike",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1659312000000,
     "TrackUsageCount": 24,
     "TrackWidth": 106.68
@@ -107,6 +128,9 @@
     "TrackDifficulty": 70,
     "TrackLength": 57.89,
     "TrackName": "DBro Super Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1656633600000,
     "TrackUsageCount": 115,
     "TrackWidth": 106.68
@@ -121,6 +145,9 @@
     "TrackDifficulty": 25,
     "TrackLength": 40.2,
     "TrackName": "DBro Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1656633600000,
     "TrackUsageCount": 30,
     "TrackWidth": 106.88
@@ -135,6 +162,9 @@
     "TrackDifficulty": 10,
     "TrackLength": 58.61,
     "TrackName": "BreadCentric Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1654041600000,
     "TrackUsageCount": 130,
     "TrackWidth": 106.68
@@ -149,6 +179,9 @@
     "TrackDifficulty": 10,
     "TrackLength": 41.28,
     "TrackName": "BreadCentric Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1654041600000,
     "TrackUsageCount": 32,
     "TrackWidth": 106.88
@@ -163,6 +196,9 @@
     "TrackDifficulty": 40,
     "TrackLength": 46.16,
     "TrackName": "Ross Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1651363200000,
     "TrackUsageCount": 103,
     "TrackWidth": 107
@@ -177,6 +213,9 @@
     "TrackDifficulty": 75,
     "TrackLength": 63.92,
     "TrackName": "Ross Super Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1651363200000,
     "TrackUsageCount": 58,
     "TrackWidth": 107
@@ -191,6 +230,9 @@
     "TrackDifficulty": 68,
     "TrackLength": 67.46,
     "TrackName": "Ace Super Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1648771200000,
     "TrackUsageCount": 87,
     "TrackWidth": 107
@@ -205,6 +247,9 @@
     "TrackDifficulty": 35,
     "TrackLength": 50.3,
     "TrackName": "Ace Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1648771200000,
     "TrackUsageCount": 329,
     "TrackWidth": 107
@@ -219,6 +264,9 @@
     "TrackDifficulty": 60,
     "TrackLength": 48.07,
     "TrackName": "Rogue Circuit",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1646092800000,
     "TrackUsageCount": 239,
     "TrackWidth": 106.88
@@ -233,6 +281,9 @@
     "TrackDifficulty": 75,
     "TrackLength": 76.76,
     "TrackName": "Rogue Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1646092800000,
     "TrackUsageCount": 174,
     "TrackWidth": 106.68
@@ -247,6 +298,9 @@
     "TrackDifficulty": 25,
     "TrackLength": 25.24,
     "TrackName": "RL Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1643673600000,
     "TrackUsageCount": 787,
     "TrackWidth": 106.88
@@ -261,6 +315,9 @@
     "TrackDifficulty": 25,
     "TrackLength": 39.12,
     "TrackName": "Vivalas Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1635588000000,
     "TrackUsageCount": 88,
     "TrackWidth": 108
@@ -275,6 +332,9 @@
     "TrackDifficulty": 70,
     "TrackLength": 73.78,
     "TrackName": "Vivalas Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1635552000000,
     "TrackUsageCount": 246,
     "TrackWidth": 108
@@ -289,6 +349,9 @@
     "TrackDifficulty": 52,
     "TrackLength": 43.47,
     "TrackName": "Expedition Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1633021200000,
     "TrackUsageCount": 12,
     "TrackWidth": 1.07
@@ -303,6 +366,9 @@
     "TrackDifficulty": 47,
     "TrackLength": 69.17,
     "TrackName": "Expedition Super Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1633021080000,
     "TrackUsageCount": 412,
     "TrackWidth": 1.07
@@ -317,6 +383,9 @@
     "TrackDifficulty": 57,
     "TrackLength": 59.57,
     "TrackName": "Playa Super Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1630454400000,
     "TrackUsageCount": 144,
     "TrackWidth": 1.07
@@ -331,6 +400,9 @@
     "TrackDifficulty": 55,
     "TrackLength": 45.06,
     "TrackName": "Playa Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1630454400000,
     "TrackUsageCount": 10,
     "TrackWidth": 1.07
@@ -345,6 +417,9 @@
     "TrackDifficulty": 64,
     "TrackLength": 59.5,
     "TrackName": "Hot Rod Super Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1627689601000,
     "TrackUsageCount": 185,
     "TrackWidth": 1.07
@@ -359,6 +434,9 @@
     "TrackDifficulty": 55,
     "TrackLength": 42.21,
     "TrackName": "Hot Rod Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1627689601000,
     "TrackUsageCount": 36,
     "TrackWidth": 1.07
@@ -373,6 +451,9 @@
     "TrackDifficulty": 24,
     "TrackLength": 64.67,
     "TrackName": "Baja Highway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1625072280000,
     "TrackUsageCount": 78,
     "TrackWidth": 1.07
@@ -387,6 +468,9 @@
     "TrackDifficulty": 50,
     "TrackLength": 40.56,
     "TrackName": "Baja Turnpike",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1625072280000,
     "TrackUsageCount": 160,
     "TrackWidth": 1.07
@@ -401,6 +485,9 @@
     "TrackDifficulty": 52,
     "TrackLength": 45.93,
     "TrackName": "Kuei Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1623368700000,
     "TrackUsageCount": 11,
     "TrackWidth": 1.06
@@ -415,6 +502,9 @@
     "TrackDifficulty": 37,
     "TrackLength": 62.02,
     "TrackName": "Cosmic Circuit",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1621978121676,
     "TrackUsageCount": 161,
     "TrackWidth": 1.06
@@ -429,6 +519,9 @@
     "TrackDifficulty": 50,
     "TrackLength": 46.12,
     "TrackName": "Cosmic Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1621977289088,
     "TrackUsageCount": 91,
     "TrackWidth": 1.06
@@ -443,6 +536,9 @@
     "TrackDifficulty": 35,
     "TrackLength": 60.74,
     "TrackName": "Kuei Super Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1619827200000,
     "TrackUsageCount": 35,
     "TrackWidth": 1.06
@@ -457,6 +553,9 @@
     "TrackDifficulty": 28,
     "TrackLength": 59.23,
     "TrackName": "Lars Circuit",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1617235201000,
     "TrackUsageCount": 116,
     "TrackWidth": 107
@@ -471,6 +570,9 @@
     "TrackDifficulty": 34,
     "TrackLength": 41.55,
     "TrackName": "Lars Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1617235201000,
     "TrackUsageCount": 63,
     "TrackWidth": 107
@@ -499,6 +601,9 @@
     "TrackDifficulty": 31,
     "TrackLength": 89.24,
     "TrackName": "Po-Chun Super Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1614560400000,
     "TrackUsageCount": 57,
     "TrackWidth": 107
@@ -513,6 +618,9 @@
     "TrackDifficulty": 61,
     "TrackLength": 60,
     "TrackName": "European Seaside Circuit - Buildings",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1609718400000,
     "TrackUsageCount": 18,
     "TrackWidth": 128
@@ -541,6 +649,9 @@
     "TrackDifficulty": 54,
     "TrackLength": 59,
     "TrackName": "American Hills Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1604966400000,
     "TrackUsageCount": 62,
     "TrackWidth": 131
@@ -569,6 +680,9 @@
     "TrackDifficulty": 61,
     "TrackLength": 60,
     "TrackName": "European Seaside Circuit",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1604966400000,
     "TrackUsageCount": 228,
     "TrackWidth": 128
@@ -583,6 +697,9 @@
     "TrackDifficulty": 36,
     "TrackLength": 60,
     "TrackName": "Stratus Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1601510400000,
     "TrackUsageCount": 29,
     "TrackWidth": 105
@@ -597,6 +714,9 @@
     "TrackDifficulty": 33,
     "TrackLength": 60,
     "TrackName": "Cumulo Turnpike",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1598918400000,
     "TrackUsageCount": 850,
     "TrackWidth": 106
@@ -611,6 +731,9 @@
     "TrackDifficulty": 82,
     "TrackLength": 51,
     "TrackName": "Yun Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1596240000000,
     "TrackUsageCount": 146,
     "TrackWidth": 107
@@ -625,6 +748,9 @@
     "TrackDifficulty": 56,
     "TrackLength": 60,
     "TrackName": "Roger Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1593561600000,
     "TrackUsageCount": 19,
     "TrackWidth": 107
@@ -639,6 +765,9 @@
     "TrackDifficulty": 32,
     "TrackLength": 53,
     "TrackName": "Fumiaki Loop",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1590969600000,
     "TrackUsageCount": 64,
     "TrackWidth": 107
@@ -653,6 +782,9 @@
     "TrackDifficulty": 31,
     "TrackLength": 60,
     "TrackName": "Circuit de Barcelona-Catalunya",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1588291200000,
     "TrackUsageCount": 97,
     "TrackWidth": 107
@@ -1799,6 +1931,9 @@
     "TrackDifficulty": 72,
     "TrackLength": 39,
     "TrackName": "Baadal Track",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1580515200000,
     "TrackUsageCount": 161,
     "TrackWidth": 107
@@ -1813,6 +1948,9 @@
     "TrackDifficulty": 50,
     "TrackLength": 38,
     "TrackName": "SOLA Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1577836800000,
     "TrackUsageCount": 56,
     "TrackWidth": 106
@@ -1827,6 +1965,9 @@
     "TrackDifficulty": 49,
     "TrackLength": 22.57,
     "TrackName": "AWS Summit Raceway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1575158400000,
     "TrackUsageCount": 152,
     "TrackWidth": 91
@@ -1841,6 +1982,9 @@
     "TrackDifficulty": 25,
     "TrackLength": 21.74,
     "TrackName": "Toronto Turnpike Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1569888000000,
     "TrackUsageCount": 27,
     "TrackWidth": 76
@@ -1855,6 +1999,9 @@
     "TrackDifficulty": 23,
     "TrackLength": 20.51,
     "TrackName": "Cumulo Carrera Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1567296000000,
     "TrackUsageCount": 39,
     "TrackWidth": 76
@@ -1869,6 +2016,9 @@
     "TrackDifficulty": 32,
     "TrackLength": 22.92,
     "TrackName": "Shanghai Sudu Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1564617600000,
     "TrackUsageCount": 54,
     "TrackWidth": 76
@@ -1883,6 +2033,9 @@
     "TrackDifficulty": 42,
     "TrackLength": 21.88,
     "TrackName": "Empire City Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1561939200000,
     "TrackUsageCount": 73,
     "TrackWidth": 76
@@ -1897,6 +2050,9 @@
     "TrackDifficulty": 31,
     "TrackLength": 22.63,
     "TrackName": "Kumo Torakku Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1559347200000,
     "TrackUsageCount": 26,
     "TrackWidth": 76
@@ -1911,6 +2067,9 @@
     "TrackDifficulty": 16,
     "TrackLength": 19.45,
     "TrackName": "London Loop Training",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1556668800000,
     "TrackUsageCount": 61,
     "TrackWidth": 76
@@ -1925,6 +2084,9 @@
     "TrackDifficulty": 50,
     "TrackLength": 17.43,
     "TrackName": "Bowtie Track",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1554076800000,
     "TrackUsageCount": 139,
     "TrackWidth": 76
@@ -1939,6 +2101,9 @@
     "TrackDifficulty": 92,
     "TrackLength": 19.55,
     "TrackName": "Oval Track",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1551398400000,
     "TrackUsageCount": 285,
     "TrackWidth": 76
@@ -1953,6 +2118,9 @@
     "TrackDifficulty": 94,
     "TrackLength": 16.64,
     "TrackName": "A to Z Speedway",
+    "Waypoints": "Unknown",
+    "WaypointsDescription": "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], An ordered list of track-dependent Max milestones along the track center. Each milestone is described by a coordinate of (xw,i, yw,i). For a looped track, the first and last waypoints are the same.  For a straight or other non-looped track, the first and last waypoints are different.",
+    "OptimalRaceLine": "Unknown",
     "TrackReleaseTime": 1548979200000,
     "TrackUsageCount": 672,
     "TrackWidth": 107
