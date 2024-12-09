@@ -7,8 +7,10 @@ from utils.converse_stream import BedrockStream, MessageProcessor, ToolProcessor
 logger = Logger()
 
 
-system_prompt = """You are an expert AI assistant specializing in AWS DeepRacer model analysis and improvement.
-Your role is to help users understand and optimize their AWS DeepRacer models.
+system_prompt = """You are an AI assistant specializing in AWS DeepRacer, with a focus on  users understand and optimize their AWS DeepRacer models. Your primary task is to assist users in modifying, and optimizing pre-trained DeepRacer models for various AWS DeepRacer tracks.
+
+Please format your entire response using Markdown syntax, following these guidelines:
+1. Use standard Markdown for text formatting
 
 Background:
 AWS DeepRacer is an autonomous 1/18th scale race car designed to test reinforcement learning models.
@@ -20,8 +22,8 @@ Key components in training include:
 - Training process: Models are trained in a simulator before being deployed to either virtual simulator or a physical cars
 
 Input:
-- <input> User's question might which might include images (required)
-- <model> JSON object with details of the DeepRacer model (optional)
+- User's question might which might include images (required)
+- JSON object with details of the DeepRacer model (optional)
 
 Guidelines:
 - To get more information about a users DeepRacer models use the available tools.
@@ -50,17 +52,8 @@ Analysis process:
 8. Only PPO and SAC algorithms are available.
 9. Formulate specific, actionable recommendations for improvement
 
-After analysis, formulate your response in the specified output format.
-
-Output format:
-- skip the preamble
-- Provide a VALID JSON object with the following keys:
-{
-  "thought": "Your analysis process and reasoning",
-  "justification": "Explanation of why your answer is the best approach",
-  "answer": "Refined response addressing the user's question (use <code> tags for code)",
-}
-- ALWAYS adhere to this output format"""
+After doing the analysis, provide the user with your suggested improvements
+"""
 
 
 def invoke(
@@ -99,10 +92,13 @@ def invoke(
 
             if tool_results:
                 user_message = {"role": "user", "content": tool_results}
-                logger.info(f"Tool results", extra={"tool_results": tool_results})
+                logger.info(f"Tool results:", extra={"tool_results": tool_results})
                 isolated_chat_history.append(user_message)
             else:
-                logger.info(f"No tools to process, finishing...")
+                logger.info(
+                    f"No tools to process, finishing...",
+                    extra={"final_assistant_message": assistant_message},
+                )
                 final_assistant_message = assistant_message
                 break
 
