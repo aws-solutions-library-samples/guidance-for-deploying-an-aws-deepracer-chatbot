@@ -114,12 +114,17 @@ class MessageProcessor:
 
     def _handle_event(
         self,
-        event_type: EventType,  # Changed to use EventType enum
+        event_type: EventType,
         event: Dict[str, Any],
         ai_message: Dict[str, Any],
         stream_callback: Optional[Callable[[str], None]],
     ):
         """Route events to appropriate handlers"""
+
+        # Validate stream_callback if provided
+        if stream_callback is not None and not callable(stream_callback):
+            raise TypeError("stream_callback must be callable or None")
+
         handlers = {
             EventType.MESSAGE_START: lambda: self._handle_message_start(
                 event, ai_message
@@ -219,6 +224,11 @@ class MessageProcessor:
             stream_callback (Optional[Callable[[str], None]]): Optional callback function
                 for streaming text content as it arrives.
         """
+
+        # Validate stream_callback if provided
+        if stream_callback is not None and not callable(stream_callback):
+            raise TypeError("stream_callback must be callable or None")
+
         delta = event["contentBlockDelta"]["delta"]
         index = event["contentBlockDelta"]["contentBlockIndex"]
 
