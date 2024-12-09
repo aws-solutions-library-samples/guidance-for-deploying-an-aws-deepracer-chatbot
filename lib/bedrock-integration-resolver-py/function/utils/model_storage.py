@@ -9,6 +9,10 @@ from botocore.exceptions import ClientError
 logger = Logger()
 
 
+class InvalidTableNameError(ValueError):
+    pass
+
+
 class ModelStorage:
     def __init__(self, table_name: str, boto3_session: boto3.Session = None):
         if boto3_session:
@@ -17,6 +21,21 @@ class ModelStorage:
             dynamodb = boto3.resource("dynamodb")
 
         self.ddbTable = dynamodb.Table(table_name)
+
+        # Validate table_name
+        if not table_name:
+            raise InvalidTableNameError("Table name cannot be empty")
+
+        if not isinstance(table_name, str):
+            raise InvalidTableNameError("Table name must be a string")
+        # Add table verification
+        try:
+            self.ddbTable.load()
+        except ClientError as e:
+            if e.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error(f"Table {table_name} does not exist")
+                raise
+            raise e
 
     def add_model(
         self, user_id: str, model_name: str, model_data: Dict[str, Any]

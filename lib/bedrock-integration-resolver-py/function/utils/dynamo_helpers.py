@@ -87,7 +87,9 @@ def get_item(table_name: str, key: Dict[str, Union[str, int]]) -> Union[Dict, No
     try:
         response = ddb_client.get_item(TableName=table_name, Key=key)
         if "Item" in response:
-            return {k: decimal_to_number(v) for k, v in response["Item"].items()}
+            return {
+                k: replace_decimal_with_float(v) for k, v in response["Item"].items()
+            }
         return None
     except ClientError as e:
         logger.error(f"Error fetching item from DynamoDB: {e}")
