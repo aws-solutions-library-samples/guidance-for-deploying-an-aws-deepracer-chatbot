@@ -2,7 +2,7 @@ import copy
 from typing import Any, Callable, Dict, List
 
 from aws_lambda_powertools import Logger
-from knowledge_base.output_converters import to_converse_api_content
+from knowledge_base.output_converters import content_to_string, to_converse_api_content
 from utils.converse_stream import (
     BedrockStream,
     MessageProcessor,
@@ -12,45 +12,133 @@ from utils.converse_stream import (
 
 logger = Logger()
 
-system_prompt = """You are an expert AI assistant with in-depth knowledge of AWS DeepRacer, specializing in generating reward functions for DeepRacer models. Your primary task is to help users generate, analyze, and modify reward functions for given AWS DeepRacer tracks.
+base_system_prompt = """
+You are an AI assistant specializing in AWS DeepRacer, with a focus on generating and analyzing reward functions for DeepRacer models. Your primary task is to assist users in creating, modifying, and optimizing reward functions for various AWS DeepRacer tracks.
 
-You will receive from the user:
-- <input> User's question (mandatory)
+Please format your entire response using Markdown syntax, following these guidelines:
+1. Use standard Markdown for text formatting
+2. For Python code blocks, use triple backticks with the language specified:
 
-Other artifacts that might be added from the RAG pipeline:
-- <context> Additional context about AWS DeepRacer from reliable sources, DeepRacer documentation, FAQ, track layouts and track info (optional)
-- <examples> Related Reward function examples (optional)
+   ```python
+   def example_function():
+       return "This is a Python function"
+3. Ensure that any Python code have 2 spaces of indentation
 
-Always focus on the mandatory user input as your primary goal. Use any provided optional information to generate an appropriate output.
+Input Format:
+- User's question about DeepRacer reward functions
 
-<guidelines_and_constraints>
-- Provide clear, easy-to-follow next steps for the user.
-- Ensure all analysis and Python functions can be performed solely within the AWS DeepRacer console.
-- Do not reference or recommend external tools, data sources, or actions outside the AWS DeepRacer environment.
-- Combine multiple reward components (e.g., speed, distance from center, progress) into a final reward.
-- Include progress-based rewards to encourage completing laps quickly.
-- Avoid hard-coding specific track information to allow for better generalization.
-- Normalize and combine reward components with tunable weights.
-- Always return positive float values, even for suboptimal actions (minimum 1e-3).
-- Use exponential functions for reward scaling to create stronger gradients for desired behaviors.
-- Reward alignment between the car's heading and the track direction.
-- Properly penalize off-track behavior without using zero rewards.
-- Consider the chosen action space when designing the reward function, adhering to these constraints:
-    - Steering angle range: Left turn (0 to 30 degrees), Right turn (-30 to 0 degrees)
-    - Speed range: Minimum (0.1 to 4 m/s), Maximum (0.1 to 4 m/s)
-- A discount factor hyper parameter value that has proven to good for DeepRacer is: 0.95
-- Keep the reward function computationally efficient by limiting complex mathematical operations.
-- if no track name is provided assume it is the re:Invent 2018 track
-- Study the correlation between specific driving behaviors (e.g., staying centered, taking optimal racing lines, maintaining speed in turns) and the rewards given.
-- Ensure that desired behaviors are consistently and appropriately rewarded.
-- if adding Optimal racing line (pre-computed) coordinates, all of them need to be provided, else the reward function is not valid python. Do not truncated for brevity.
-- If you need more information to complete the task and do not see that using one of the provided tools will solve it. Ask the user to clarify their intentions.
-- Do not state the name of the tools you have access to or is using to get data.
-- any import of python modules shall be before the 'def reward_function(params):' line
 
-<output_format>
-- Analyze the given information and briefly explain to the user how you plan to generate a reward function that fits the user's criteria.
+Here is additional relevant DeepRacer information:
+<context></context>
+
+Here are relevant examples of reward functions:
+<examples></examples>
+
+Guidelines for Reward Function Development:
+
+1. Reward Function Composition:
+   - If the <input> do not mention waypoints or optimal race line, avoid generating waypoint based reward functions.
+   - Combine multiple reward components (e.g., speed, distance from center, progress).
+   - Include progress-based rewards to encourage completing laps quickly.
+   - Avoid hard-coding specific track information for better generalization.
+   - Normalize and combine reward components with tunable weights.
+   - Always return positive float values (minimum 1e-3), even for suboptimal actions.
+   - Use exponential functions for reward scaling to create stronger gradients.
+   - Reward alignment between the car's heading and the track direction.
+   - Properly penalize off-track behavior without using zero rewards.
+
+2. Technical Constraints:
+   - Ensure all Python functions can be executed within the AWS DeepRacer console.
+   - Adhere to the action space constraints:
+     * Steering angle range: Left turn (0 to 30 degrees), Right turn (-30 to 0 degrees)
+     * Speed range: Minimum (0.1 to 4 m/s), Maximum (0.1 to 4 m/s)
+   - Use a discount factor hyper-parameter value of 0.95.
+   - Keep reward functions computationally efficient.
+   - Place any Python module imports at the top of the file.
+
+3. Track-Specific Considerations:
+   - If no track name is provided, assume it is the re:Invent 2018 track.
+   - When adding optimal racing line coordinates, provide all coordinates to ensure the output is valid Python code.
+
+4. Analysis and Optimization:
+   - Study correlations between specific driving behaviors and rewards.
+   - Ensure desired behaviors are consistently and appropriately rewarded.
+   - Provide clear, easy-to-follow next steps for optimizing reward functions.
+
+5. Versioning:
+   - If you encounter potential discrepancies between your knowledge and current AWS DeepRacer features, acknowledge this possibility to the user.
+   - Encourage users to verify information with the latest AWS DeepRacer documentation.
+
+Response Format:
+- If the user question is unrelated to DeepRacer reward functions polity remind them about what you can support them on.
+
+1. Begin with a brief summary of how you plan to address the user's reward function query.
+2. Provide an explanation or analysis of the reward function, using markdown for formatting.
+3. Include Python code in code blocks when generating or modifying reward functions.
+4. Conclude with clear next steps or recommendations for optimizing the reward function.
+
+Remember, your primary goal is to assist users in creating effective and efficient reward functions for AWS DeepRacer, ensuring they adhere to best practices and technical constraints.
 """
+
+
+def update_system_prompt(system_prompt, new_examples=None, new_context=None):
+    """
+    Update the system prompt string with new examples and/or context.
+
+    Args:
+    system_prompt (str): The original system prompt string.
+    new_examples (list, optional): A list of strings, each containing a new example.
+    new_context (str, optional): A string containing new context information.
+
+    Returns:
+    str: The updated system prompt string with new examples and/or context added.
+    """
+
+    def update_section(prompt, section_name, new_content):
+        start_tag = f"<{section_name}>"
+        end_tag = f"</{section_name}>"
+        start = prompt.find(start_tag)
+        end = prompt.find(end_tag)
+
+        if start == -1 or end == -1:
+            raise ValueError(
+                f"Could not find the <{section_name}> tags in the system prompt."
+            )
+
+        existing_content = prompt[start + len(start_tag) : end].strip()
+
+        if isinstance(new_content, list):
+            updated_content = existing_content + "\n\n" + "\n\n".join(new_content)
+        else:
+            updated_content = existing_content + "\n\n" + new_content
+
+        return (
+            prompt[: start + len(start_tag)]
+            + "\n"
+            + updated_content
+            + "\n"
+            + prompt[end:]
+        )
+
+    updated_prompt = system_prompt
+    try:
+        if new_examples:
+            logger.info(
+                "Adding new examples to system prompt",
+                extra={"new_examples": new_examples},
+            )
+            updated_prompt = update_section(updated_prompt, "examples", new_examples)
+
+        if new_context:
+            logger.info(
+                "Adding new context to system prompt",
+                extra={"new_context": new_context},
+            )
+            updated_prompt = update_section(updated_prompt, "context", new_context)
+    except Exception as e:
+        logger.error(f"Failed to update system prompt: {e}")
+    logger.info("Updated system prompt:", extra={"updated_prompt": updated_prompt})
+    return updated_prompt
 
 
 def invoke(
@@ -91,45 +179,16 @@ def invoke(
         extra={"bedrock_invoke_formatted_content": bedrock_invoke_formatted_content},
     )
 
-    # Perform similarity search and retrieve the top 3 similar documents and images
-    rag_content = knowledge_base.similarity_search(
-        query=bedrock_invoke_formatted_content, k=3
-    )
-
-    # Convert the knowledge base output into Bedrock converse message format
-    results = to_converse_api_content(query_results=rag_content)
-    print("\nReturned documents from the knowledge base:")
-    pprint(results)
-
     # Retrieve the reward function examples relevant for answering the users query
     reward_function_examples = reward_function_examples_db.similarity_search(
         query=bedrock_invoke_formatted_content, k=3
     )
-
-    reward_function_examples_as_content = to_converse_api_content(
-        query_results=reward_function_examples, content_type="examples"
-    )
-    logger.info(
-        "Returned reward function examples from the knowledge base:",
-        extra={"results": reward_function_examples_as_content},
-    )
-
-    # Extend the content with the RAG results to maintain a flat structure
-    #    user_message["content"].extend(results)
-    user_message["content"].extend(reward_function_examples_as_content)
-    logger.info(
-        "User message with appended RAG content & reward function examples:",
-        extra={"user_message": user_message},
-    )
-    isolated_chat_history[-1] = user_message
-
-    logger.info(
-        "Messages to send to Bedrock, which will be passed to the LLM:",
-        extra={"isolated_chat_history": isolated_chat_history},
+    system_prompt = update_system_prompt(
+        system_prompt=base_system_prompt,
+        new_examples=content_to_string(reward_function_examples),
     )
 
     final_assistant_message = None
-
     try:
         for _ in range(max_tool_iterations):
 

@@ -14,6 +14,23 @@ from utils.utils import safe_decode_base64
 logger = Logger()
 
 
+def content_to_string(
+    query_results: List[Dict[str, Any]], content_type: str = "context"
+) -> List[str]:
+    contents = []
+    for result in query_results:
+        try:
+            if "text" in result:
+                contents.append(process_text_result(result)["text"])
+            elif "image" in result:
+                contents.extend(process_image_result(result)["image"])
+            else:
+                logger.warning(f"Unexpected result format: {result}")
+        except Exception as e:
+            logger.exception(f"Error processing result: {e}")
+    return contents
+
+
 def to_converse_api_content(
     query_results: List[Dict[str, Any]], content_type: str = "context"
 ) -> List[Dict[str, Any]]:
