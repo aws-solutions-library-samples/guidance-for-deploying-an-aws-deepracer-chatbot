@@ -108,6 +108,9 @@ class FaissVectorStore:
             Exception: If there is an error while reading the FAISS index file.
         """
         index_path = os.path.join(directory_path, index_file_name)
+        if not os.path.exists(index_path):
+            raise FileNotFoundError(f"Index file not found: {index_path}")
+
         try:
             faiss_index = faiss.read_index(index_path)
         except Exception as e:
@@ -116,6 +119,10 @@ class FaissVectorStore:
         document_store_file_path = os.path.join(
             directory_path, document_store_file_name
         )
+        if not os.path.exists(document_store_file_path):
+            raise FileNotFoundError(
+                f"Document store file not found: {document_store_file_path}"
+            )
         try:
             with open(document_store_file_path, "r") as file:
                 loaded_data = json.load(file)
