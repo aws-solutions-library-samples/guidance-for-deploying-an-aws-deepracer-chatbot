@@ -27,7 +27,15 @@ class BedrockStream:
             model_id (str): The ID of the model to use for chat generation.
             boto3_client (boto3.client, optional): An existing Boto3 client instance.
             region_name (str, optional): The AWS region name.
+
+        Raises:
+            TypeError: If model_id or region_name is None
         """
+        if model_id is None:
+            raise TypeError("model_id cannot be None")
+        if region_name is None:
+            raise TypeError("region_name cannot be None")
+
         self.model_id = model_id
 
         self.bedrock_boto3 = boto3_client or boto3.client(
