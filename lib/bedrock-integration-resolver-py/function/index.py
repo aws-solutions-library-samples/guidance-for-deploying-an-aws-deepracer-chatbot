@@ -10,8 +10,8 @@ from aws_lambda_powertools import Logger
 from aws_lambda_powertools.event_handler import AppSyncResolver
 from aws_lambda_powertools.logging import correlation_paths
 from aws_lambda_powertools.utilities.typing import LambdaContext
-from deepracer_tracks.track_manager import TrackManager
 from knowledge_base.vector_db import FaissVectorStore
+from track_manager import TrackManager
 from utils.chat_history import ChatHistory
 from utils.converse_stream import BedrockStream, MessageProcessor, ToolProcessor
 from utils.embedding_models import TitanEmbeddings

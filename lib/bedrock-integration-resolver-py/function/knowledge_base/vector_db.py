@@ -1,7 +1,5 @@
-import base64
 import json
 import os
-import uuid
 from typing import Any, Callable, Dict, Iterable, List, Optional
 
 import faiss

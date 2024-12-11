@@ -1,9 +1,7 @@
-import io
 import json
+import os
 from typing import Dict, List, Optional, Union
 
-import numpy as np
-import requests
 from aws_lambda_powertools import Logger
 from rapidfuzz import fuzz, process
 
@@ -11,9 +9,10 @@ logger = Logger()
 
 
 class TrackManager:
-    def __init__(
-        self, tracks_file_path: str = "./deepracer_tracks/deepracer-tracks-v3.json"
-    ):
+    def __init__(self, tracks_file_path: str = None):
+        if not tracks_file_path:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            tracks_file_path = os.path.join(current_dir, "deepracer-tracks-v3.json")
         self.tracks: Dict = self._load_tracks(tracks_file_path)
 
     def _load_tracks(self, file_path: str) -> Dict:
@@ -29,26 +28,6 @@ class TrackManager:
             raise FileNotFoundError(f"Tracks file not found: {file_path}")
         except json.JSONDecodeError:
             raise ValueError(f"Invalid JSON format in file: {file_path}")
-
-    @staticmethod
-    def _load_numpy_from_github(url: str) -> np.ndarray:
-        """Load numpy array from GitHub URL."""
-        raw_url = url.replace("github.com", "raw.githubusercontent.com").replace(
-            "/blob/", "/"
-        )
-        logger.info(f"Loading waypoints numpy array from {raw_url}")
-        try:
-            response = requests.get(raw_url)
-            response.raise_for_status()
-
-            content = io.BytesIO(response.content)
-            return np.load(content, allow_pickle=True)
-        except requests.RequestException as e:
-            logger.error(f"Failed to download file: {e}")
-            raise Exception(f"Failed to download file: {e}")
-        except Exception as e:
-            logger.error(f"Error loading numpy array: {e}")
-            raise Exception(f"Error loading numpy array: {e}")
 
     @staticmethod
     def _find_track(search_term: str, track_list: List[str]) -> Optional[Dict]:
@@ -86,31 +65,6 @@ class TrackManager:
 
             track_info = self.tracks[identified_track["track_name"]].copy()
 
-            # Load waypoints if available
-            waypoints = "unknown"
-            if "Waypoints" in track_info:
-                return track_info
-            elif "WaypointsNpy" in track_info:
-                try:
-                    waypoint_npy = self._load_numpy_from_github(
-                        track_info["WaypointsNpy"]
-                    )
-                    waypoints = waypoint_npy.tolist()
-                except Exception as e:
-                    logger.error(f"Error loading waypoints: {e}")
-
-                track_info.update(
-                    {
-                        "Waypoints": waypoints,
-                        "WaypointsDescription": (
-                            "Type: list of [float, float], Range: [[xw,0,yw,0] … [xw,Max-1, yw,Max-1]], "
-                            "An ordered list of track-dependent Max milestones along the track center. "
-                            "Each milestone is described by a coordinate of (xw,i, yw,i). "
-                            "For a looped track, the first and last waypoints are the same. "
-                            "For a straight or other non-looped track, the first and last waypoints are different."
-                        ),
-                    }
-                )
             logger.info(
                 f"Returning track info for {track_name}",
                 extra={"track": track_info},
@@ -119,3 +73,12 @@ class TrackManager:
 
         except Exception as e:
             return f"Error processing track {track_name}: {str(e)}"
+
+    @staticmethod
+    def get_track_meta_data():
+        return {
+            "TrackDifficulty": "Track difficulty is an integer ranging from 100 to 1, where 1 is the hardest",
+            "TrackLength": "Meters",
+            "TrackWidth": "Centimeters",
+            "TrackUsageCount": "Number of times the track has been used",
+        }

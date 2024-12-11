@@ -42,8 +42,16 @@ export class DeepRacerModelEvaluatorBackendStack extends Stack {
       compatibleRuntimes: [lambda.Runtime.PYTHON_3_12]
     });
 
+    const deepracerTracksLayer = new PythonLayerVersion(this, `DeepRacerTracks`, {
+      removalPolicy: RemovalPolicy.DESTROY,
+      entry: path.join(__dirname, 'lambda_layers/deepracer_tracks'),
+      compatibleArchitectures: [lambda.Architecture.X86_64, lambda.Architecture.ARM_64],
+      compatibleRuntimes: [lambda.Runtime.PYTHON_3_12]
+    });
+
     const lambdaLayers: LambdaLayers = {
       appsyncHelpers: appsyncHelpersLayer,
+      deepracerTracks: deepracerTracksLayer,
       lambdaPowerTools: lambdaPowerToolsLayer
     }
 

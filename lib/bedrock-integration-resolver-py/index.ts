@@ -79,7 +79,11 @@ export class BedrockIntegrationPyResolver extends Construct {
           POWERTOOLS_SERVICE_NAME: "BedrockIntegrationV2",
           POWERTOOLS_LOG_LEVEL: "INFO",
         },
-        layers: [lambdaLayers.appsyncHelpers, lambdaLayers.lambdaPowerTools],
+        layers: [
+          lambdaLayers.appsyncHelpers,
+          lambdaLayers.lambdaPowerTools,
+          lambdaLayers.deepracerTracks,
+        ],
       }
     );
     session_store_table.grantReadWriteData(lambdaFunction);

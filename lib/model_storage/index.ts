@@ -129,6 +129,7 @@ export class ModelStorageAndPreProcessing extends Construct {
         layers: [
           props.lambdaLayers.appsyncHelpers,
           props.lambdaLayers.lambdaPowerTools,
+          props.lambdaLayers.deepracerTracks,
         ],
       }
     );

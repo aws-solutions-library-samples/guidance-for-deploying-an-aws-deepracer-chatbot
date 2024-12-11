@@ -1,6 +1,7 @@
-import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambda from "aws-cdk-lib/aws-lambda";
 
 export type LambdaLayers = {
-    appsyncHelpers: lambda.LayerVersion,
-    lambdaPowerTools: lambda.LayerVersion
-  }
+  appsyncHelpers: lambda.LayerVersion;
+  deepracerTracks: lambda.LayerVersion;
+  lambdaPowerTools: lambda.LayerVersion;
+};
