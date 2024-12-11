@@ -5,11 +5,12 @@ import glob
 import json
 import os
 
-import deepracer_tracks
 import yaml
 from aws_lambda_powertools import Logger
+from track_manager import TrackManager
 
 logger = Logger()
+track_manager = TrackManager()
 
 
 class DeepRacerModel:
@@ -35,7 +36,7 @@ class DeepRacerModel:
             for training_params_file in training_params_files:
                 training_settings = open(training_params_file, "r").read()
                 track_id = yaml.safe_load(training_settings)["WORLD_NAME"]
-                track = deepracer_tracks.get_track_by_id(track_id)
+                track = track_manager.get_track_by_id(track_id)
 
                 training_direction = "unknown"
                 try:
@@ -78,7 +79,7 @@ class DeepRacerModel:
                 ]
                 if evaluation_metrics_file_name in metrics_s3_object_key:
                     track_id = yaml.safe_load(eval_settings)["WORLD_NAME"]
-                    track = deepracer_tracks.get_track_by_id(track_id)
+                    track = track_manager.get_track_by_id(track_id)
 
                     try:
                         is_evaluated_clockwise = yaml.safe_load(eval_settings)[

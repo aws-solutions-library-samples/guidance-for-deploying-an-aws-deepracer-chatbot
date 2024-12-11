@@ -1,7 +1,10 @@
 from typing import Any, Dict
 
 import deepracer_model
+from aws_lambda_powertools import Logger
 from track_manager import TrackManager
+
+logger = Logger()
 
 
 def parse_model(local_model_path: str) -> Dict[str, Any]:
@@ -25,5 +28,5 @@ def parse_model(local_model_path: str) -> Dict[str, Any]:
     model_data["evaluation_results"] = model.get_evaluation_metrics()
     model_data["track_meta_data"] = TrackManager.get_track_meta_data()
 
-    #    logger.debug("Parsed model", extra={"model_data": model_data})
+    logger.info("Parsed model", extra={"model_data": model_data})
     return model_data

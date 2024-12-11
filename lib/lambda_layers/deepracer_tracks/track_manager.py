@@ -74,6 +74,24 @@ class TrackManager:
         except Exception as e:
             return f"Error processing track {track_name}: {str(e)}"
 
+    def get_track_by_id(self, track_id):
+        logger.info(f"Getting track by id: {track_id}")
+        for track_info in self.tracks.values():
+            try:
+                current_track_id = track_info["TrackArn"].split("/")[1]
+                if current_track_id == track_id:
+                    logger.info(
+                        f"Returning track info for {track_id}",
+                        extra={"track": track_info},
+                    )
+                    return track_info
+            except (KeyError, IndexError) as e:
+                logger.warning(
+                    f"Malformed track data: {e}", extra={"track": track_info}
+                )
+                continue
+        return None
+
     @staticmethod
     def get_track_meta_data():
         return {
