@@ -63,7 +63,7 @@ const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
           }
         >
           <React.Suspense fallback={<div>Loading...</div>}>
-            <MessageRenderer>{item.content?.text ?? ""}</MessageRenderer>
+            <MessageRenderer text={item.content?.text ?? ""} />
           </React.Suspense>
         </ChatBubble>
       );
@@ -96,7 +96,7 @@ const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
       >
         <SpaceBetween size="s">
           <React.Suspense fallback={<div>Loading...</div>}>
-            <MessageRenderer>{item.content?.text ?? ""}</MessageRenderer>
+            <MessageRenderer text={item.content?.text ?? ""} />
           </React.Suspense>
           {item.files && item.files.length > 0 && (
             <FileTokenGroup
