@@ -8,9 +8,11 @@ import { MessageReceipt, MessageRole } from "../../API";
 import { sendMessage } from "../../graphql/mutations";
 import { MessageWithFiles } from "../../hooks/useChatMessages";
 import { useFileHandling } from "../../hooks/useFileHandling";
+import { createErrorNotification } from "../../utils/notifications";
 
 import React, { FC, useCallback, useEffect, useReducer } from "react";
 import { ChatbotVariant } from "../../API";
+import { useLayoutContext } from "../../contexts/layoutcontext";
 import useSubscription from "../../hooks/useSubscription";
 import {
   ChatActionType,
@@ -41,9 +43,10 @@ const ChatSendMessage: FC<Props> = ({
 
   const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
   const { messageToSend, sendButtonDisabled, noRowsMessageBox } = chatState;
+  const { addNotification, dismissNotification } = useLayoutContext();
 
   const { subscriptionConnected, setupSubscription, subscriptionHandler } =
-    useSubscription(user.userId, sessionId, onNewMessage, onWaitingReply);
+    useSubscription(user.userId, onNewMessage, onWaitingReply);
 
   useEffect(() => {
     setupSubscription();
@@ -98,10 +101,36 @@ const ChatSendMessage: FC<Props> = ({
       if (response.status === "success") {
         console.log("Message sent successfully");
       } else {
-        console.error(response.errorMessage);
+        console.error("Error sending message:", response.errorMessage);
+        addNotification(
+          createErrorNotification({
+            message:
+              response.errorMessage ||
+              "An error occurred while sending the message",
+            dismissNotification,
+          })
+        );
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error sending message 1:", error);
+      let errorMessage = "An error occurred while sending the message";
+
+      // Handle GraphQL errors array structure
+      if (error && Array.isArray((error as any).errors)) {
+        const graphqlError = (error as any).errors[0];
+        if (graphqlError && graphqlError.message) {
+          errorMessage = graphqlError.message;
+        }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      addNotification(
+        createErrorNotification({
+          message: errorMessage,
+          dismissNotification,
+        })
+      );
     } finally {
       dispatch({
         type: ChatActionType.SET_SEND_BUTTON_DISABLED,
