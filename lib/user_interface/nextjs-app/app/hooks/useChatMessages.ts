@@ -1,11 +1,17 @@
 import { useCallback, useState } from "react";
 import { MessageResponse } from "../API";
 
+export interface MessageWithFiles extends MessageResponse {
+  files?: Array<{
+    file: File;
+  }>;
+}
+
 export function useChatMessages() {
-  const [messages, setMessages] = useState<MessageResponse[]>([]);
+  const [messages, setMessages] = useState<MessageWithFiles[]>([]);
   const [isWaitingReply, setWaitingReply] = useState(false);
 
-  const addMessage = useCallback((message: MessageResponse) => {
+  const addMessage = useCallback((message: MessageWithFiles) => {
     setMessages((prev) => {
       // If message has no messageId, just append it
       if (!message.messageId) {
@@ -24,7 +30,7 @@ export function useChatMessages() {
 
       // Combine the content of the messages
       const existingMessage = prev[existingMessageIndex];
-      const combinedMessage: MessageResponse = {
+      const combinedMessage: MessageWithFiles = {
         ...existingMessage,
         content: {
           __typename: "ContentBlock",
@@ -32,6 +38,7 @@ export function useChatMessages() {
             message.content?.text || ""
           }`,
         },
+        files: message.files,
       };
 
       // Create new array with the combined message replacing the existing one

@@ -1,29 +1,39 @@
 import { useCallback, useState } from "react";
 import { ImageContentInput, ImageFormat, ImageSourceInput } from "../API";
 import { convertToBase64AndRaw, resizeImage } from "../utils/imageUtils";
+import { useFileProcessing } from "./useFileProcessing";
+
+export interface ImageProcessingHook {
+  files: File[];
+  thumbnails: string[];
+  imageInputs: ImageContentInput[];
+  processImages: (selectedFiles: File[]) => Promise<void>;
+  clearImages: () => void;
+}
 
 /**
- * Custom hook for processing images
+ * Custom hook for processing images using the base file processing hook
  * @param width - The desired width of the processed image
  * @param height - The desired height of the processed image
- * @returns Object containing processImages function, clearImages function, thumbnails, and imageInputs
+ * @returns Object containing image processing functions and state
  */
-export default function useImageProcessing(width: number, height: number) {
+export function useImageProcessing(width: number, height: number): ImageProcessingHook {
+  const { files, setFiles, clearFiles } = useFileProcessing();
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const [imageInputs, setImageInputs] = useState<ImageContentInput[]>([]);
 
   const processImages = useCallback(
-    async (
-      files: File[]
-    ): Promise<{ thumbnails: string[]; imageInputs: ImageContentInput[] }> => {
+    async (selectedFiles: File[]) => {
       // Input validation
       if (width <= 0 || height <= 0) {
         throw new Error("Width and height must be positive numbers");
       }
 
+      setFiles(selectedFiles);
+
       try {
         const processedImages = await Promise.all(
-          files.map(async (file) => {
+          selectedFiles.map(async (file) => {
             const resizedImage = await resizeImage(file, width, height);
             const { dataUrl: thumbnail, rawBase64: base64 } =
               await convertToBase64AndRaw(resizedImage);

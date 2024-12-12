@@ -4,11 +4,13 @@ import FileInput from "@cloudscape-design/components/file-input";
 import FileTokenGroup from "@cloudscape-design/components/file-token-group";
 import PromptInput from "@cloudscape-design/components/prompt-input";
 import { generateClient } from "aws-amplify/api";
-import { ImageFormat, MessageReceipt, MessageRole } from "../../API";
+import { MessageReceipt, MessageRole } from "../../API";
 import { sendMessage } from "../../graphql/mutations";
+import { MessageWithFiles } from "../../hooks/useChatMessages";
+import { useFileHandling } from "../../hooks/useFileHandling";
 
 import React, { FC, useCallback, useEffect, useReducer } from "react";
-import { ChatbotVariant, MessageResponse } from "../../API";
+import { ChatbotVariant } from "../../API";
 import useSubscription from "../../hooks/useSubscription";
 import {
   ChatActionType,
@@ -17,7 +19,7 @@ import {
 } from "../../reducers/chatReducer";
 
 interface Props {
-  onNewMessage: (message: MessageResponse, thumbnails: string[]) => void;
+  onNewMessage: (message: MessageWithFiles) => void;
   onWaitingReply: (waiting: boolean) => void;
   onClearMessages: () => void;
   chatbotVariant: ChatbotVariant;
@@ -35,7 +37,7 @@ const ChatSendMessage: FC<Props> = ({
     context.authStatus,
   ]);
   const client = generateClient();
-  const [files, setFiles] = React.useState<File[]>([]);
+  const { files, setFiles, processFiles } = useFileHandling();
 
   const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
   const { messageToSend, sendButtonDisabled, noRowsMessageBox } = chatState;
@@ -58,53 +60,26 @@ const ChatSendMessage: FC<Props> = ({
     dispatch({ type: ChatActionType.SET_SEND_BUTTON_DISABLED, payload: true });
     onWaitingReply(true);
 
-    // Function to read file as base64
-    const readFileAsBase64 = (file: File): Promise<string> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          // Remove the "data:image/xxx;base64," prefix from the result
-          const base64String = (reader.result as string).split(",")[1];
-          resolve(base64String);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    };
-
     try {
-      // Read all files concurrently
-      const fileContents = await Promise.all(
-        files.map(async (file) => {
-          const base64Content = await readFileAsBase64(file);
-          const format = file.type.split("/")[1] as ImageFormat;
-
-          return {
-            image: {
-              format,
-              source: { bytes: base64Content },
-            },
-          };
-        })
-      );
+      const fileContents = await processFiles();
 
       const content = [{ text: messageToSend }, ...fileContents];
 
-      onNewMessage(
-        {
-          __typename: "MessageResponse",
-          chatbotVariant,
-          sessionId,
-          messageId: crypto.randomUUID(),
-          userId: user.userId,
-          role: MessageRole.user,
-          content: {
-            __typename: "ContentBlock",
-            text: messageToSend,
-          },
+      onNewMessage({
+        __typename: "MessageResponse",
+        chatbotVariant,
+        sessionId,
+        messageId: crypto.randomUUID(),
+        userId: user.userId,
+        role: MessageRole.user,
+        content: {
+          __typename: "ContentBlock",
+          text: messageToSend,
         },
-        []
-      );
+        files: files.map((file) => ({
+          file: file,
+        })),
+      });
 
       dispatch({ type: ChatActionType.RESET_MESSAGE_STATE });
       setFiles([]);
@@ -184,9 +159,9 @@ const ChatSendMessage: FC<Props> = ({
           files.length > 0 && (
             <FileTokenGroup
               items={files.map((file) => ({ file }))}
-              onDismiss={({ detail }) =>
-                setFiles((files) =>
-                  files.filter((_, index) => index !== detail.fileIndex)
+              onDismiss={({ detail }: { detail: { fileIndex: number } }) =>
+                setFiles(
+                  files.filter((_, index: number) => index !== detail.fileIndex)
                 )
               }
               alignment="horizontal"

@@ -5,10 +5,11 @@
 import { TransferProgressEvent } from "@aws-amplify/storage";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { uploadData } from "aws-amplify/storage";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLayoutContext } from "../contexts/layoutcontext";
 import { UploadState } from "../types/upload";
 import { createUploadNotification } from "../utils/notifications";
+import { useFileProcessing } from "./useFileProcessing";
 
 /**
  * Configuration constants for upload behavior
@@ -49,6 +50,7 @@ const calculateUploadProgress = (
 export const useFileUpload = (
   onUploadSuccessful: (fileName: string) => void
 ) => {
+  const { setFiles, clearFiles } = useFileProcessing();
   /**
    * State to track upload progress and file information
    */
@@ -100,6 +102,7 @@ export const useFileUpload = (
    */
   const handleUpload = async (file: File) => {
     try {
+      setFiles([file]); // Track file in base hook
       // Reset upload state for new upload
       setUploadState({ fileName: file.name, percentageUploaded: 0 });
 
@@ -115,6 +118,7 @@ export const useFileUpload = (
         },
       }).result;
     } catch (error) {
+      clearFiles(); // Clean up files on error
       console.error("Upload error:", error);
       addNotification(
         createUploadNotification({

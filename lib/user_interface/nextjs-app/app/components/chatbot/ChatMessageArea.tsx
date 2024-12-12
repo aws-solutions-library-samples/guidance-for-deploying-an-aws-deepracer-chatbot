@@ -3,9 +3,11 @@ import ChatBubble from "@cloudscape-design/chat-components/chat-bubble";
 import { SpaceBetween } from "@cloudscape-design/components";
 import Box from "@cloudscape-design/components/box";
 import ButtonGroup from "@cloudscape-design/components/button-group";
+import FileTokenGroup from "@cloudscape-design/components/file-token-group";
 import StatusIndicator from "@cloudscape-design/components/status-indicator";
 import React, { useMemo } from "react";
-import { MessageResponse, MessageRole } from "../../API";
+import { MessageRole } from "../../API";
+import { MessageWithFiles } from "../../hooks/useChatMessages";
 
 const useFormattedTime = () => {
   return useMemo(() => {
@@ -40,7 +42,7 @@ const TextWithLineBreaks: React.FC<TextWithLineBreaksProps> = React.memo(
   }
 );
 
-const ChatMessage: React.FC<{ item: MessageResponse }> = React.memo(
+const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
   ({ item }) => {
     const isAssistant = useMemo(
       () => (item.role ?? MessageRole.assistant) === MessageRole.assistant,
@@ -81,7 +83,7 @@ const ChatMessage: React.FC<{ item: MessageResponse }> = React.memo(
             />
           }
         >
-          {item.content?.text ?? ""}
+          <TextWithLineBreaks>{item.content?.text ?? ""}</TextWithLineBreaks>
         </ChatBubble>
       );
     }
@@ -111,14 +113,30 @@ const ChatMessage: React.FC<{ item: MessageResponse }> = React.memo(
           />
         }
       >
-        {item.content?.text ?? ""}
+        <SpaceBetween size="s">
+          <TextWithLineBreaks>{item.content?.text ?? ""}</TextWithLineBreaks>
+          {item.files && item.files.length > 0 && (
+            <FileTokenGroup
+              items={item.files}
+              readOnly
+              showFileSize
+              showFileThumbnail
+              onDismiss={() => {}}
+              i18nStrings={{
+                errorIconAriaLabel: "Error",
+                warningIconAriaLabel: "Warning",
+                removeFileAriaLabel: () => "Remove file",
+              }}
+            />
+          )}
+        </SpaceBetween>
       </ChatBubble>
     );
   }
 );
 
 interface ChatMessagesAreaProps {
-  messages: MessageResponse[];
+  messages: MessageWithFiles[];
   waitingOnReply: boolean;
 }
 
