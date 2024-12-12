@@ -1,39 +1,25 @@
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { Button, Textarea } from "@cloudscape-design/components";
+import Box from "@cloudscape-design/components/box";
+import FileInput from "@cloudscape-design/components/file-input";
+import FileTokenGroup from "@cloudscape-design/components/file-token-group";
+import PromptInput from "@cloudscape-design/components/prompt-input";
 import { generateClient } from "aws-amplify/api";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-} from "react";
-import {
-  ChatbotVariant,
-  ImageContentInput,
-  ImageFormat,
-  MessageReceipt,
-  MessageResponse,
-  MessageRole,
-} from "../../API";
+import { MessageReceipt, MessageRole } from "../../API";
 import { sendMessage } from "../../graphql/mutations";
-import useImageProcessing from "../../hooks/useImageProcessing";
+import { MessageWithFiles } from "../../hooks/useChatMessages";
+import { useFileHandling } from "../../hooks/useFileHandling";
+
+import React, { FC, useCallback, useEffect, useReducer } from "react";
+import { ChatbotVariant } from "../../API";
 import useSubscription from "../../hooks/useSubscription";
 import {
   ChatActionType,
   chatReducer,
   initialChatState,
 } from "../../reducers/chatReducer";
-import FileSelectorButton from "./FileSelectorButton";
-import ThumbnailList from "./ThumbnailList";
-
-// Constants
-const IMAGE_RESIZE_WIDTH = 200;
-const IMAGE_RESIZE_HEIGHT = 200;
 
 interface Props {
-  onNewMessage: (message: MessageResponse, thumbnails: string[]) => void;
+  onNewMessage: (message: MessageWithFiles) => void;
   onWaitingReply: (waiting: boolean) => void;
   onClearMessages: () => void;
   chatbotVariant: ChatbotVariant;
@@ -51,12 +37,10 @@ const ChatSendMessage: FC<Props> = ({
     context.authStatus,
   ]);
   const client = generateClient();
+  const { files, setFiles, processFiles } = useFileHandling();
 
   const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
   const { messageToSend, sendButtonDisabled, noRowsMessageBox } = chatState;
-
-  const { processImages, clearImages, thumbnails, imageInputs } =
-    useImageProcessing(IMAGE_RESIZE_WIDTH, IMAGE_RESIZE_HEIGHT);
 
   const { subscriptionConnected, setupSubscription, subscriptionHandler } =
     useSubscription(user.userId, sessionId, onNewMessage, onWaitingReply);
@@ -70,36 +54,18 @@ const ChatSendMessage: FC<Props> = ({
     };
   }, []);
 
-  const handleNewUploadedFile = useCallback(
-    async (uploadedNewFiles: File[]) => {
-      const result: { thumbnails: string[]; imageInputs: ImageContentInput[] } =
-        await processImages(uploadedNewFiles);
-      dispatch({
-        type: ChatActionType.SET_THUMBNAILS_AND_INPUTS,
-        payload: result,
-      });
-    },
-    [processImages]
-  );
-
   const handleSendMessage = useCallback(async () => {
     if (!messageToSend) return;
 
     dispatch({ type: ChatActionType.SET_SEND_BUTTON_DISABLED, payload: true });
     onWaitingReply(true);
 
-    const content = [
-      { text: messageToSend },
-      ...imageInputs.map((img) => ({
-        image: {
-          format: img.format as ImageFormat,
-          source: { bytes: img.source.bytes },
-        },
-      })),
-    ];
+    try {
+      const fileContents = await processFiles();
 
-    onNewMessage(
-      {
+      const content = [{ text: messageToSend }, ...fileContents];
+
+      onNewMessage({
         __typename: "MessageResponse",
         chatbotVariant,
         sessionId,
@@ -110,11 +76,14 @@ const ChatSendMessage: FC<Props> = ({
           __typename: "ContentBlock",
           text: messageToSend,
         },
-      },
-      thumbnails
-    );
+        files: files.map((file) => ({
+          file: file,
+        })),
+      });
 
-    try {
+      dispatch({ type: ChatActionType.RESET_MESSAGE_STATE });
+      setFiles([]);
+
       const response = (
         await client.graphql({
           query: sendMessage,
@@ -131,9 +100,6 @@ const ChatSendMessage: FC<Props> = ({
       } else {
         console.error(response.errorMessage);
       }
-
-      dispatch({ type: ChatActionType.RESET_MESSAGE_STATE });
-      clearImages();
     } catch (error) {
       console.error(error);
     } finally {
@@ -144,8 +110,7 @@ const ChatSendMessage: FC<Props> = ({
     }
   }, [
     messageToSend,
-    imageInputs,
-    thumbnails,
+    files,
     sessionId,
     subscriptionConnected,
     client,
@@ -155,31 +120,9 @@ const ChatSendMessage: FC<Props> = ({
     user.userId,
   ]);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const fileSelectorButtonContent = useMemo(
-    () =>
-      !sendButtonDisabled ? (
-        <FileSelectorButton onFileChange={handleNewUploadedFile} />
-      ) : null,
-    [sendButtonDisabled, handleNewUploadedFile]
-  );
-
-  useEffect(() => {
-    if (!sendButtonDisabled) {
-      inputRef.current?.focus();
-    }
-  }, [sendButtonDisabled]);
-
-  const memoizedThumbnailList = useMemo(
-    () =>
-      thumbnails.length > 0 ? <ThumbnailList thumbnails={thumbnails} /> : "",
-    [thumbnails]
-  );
-
   return (
-    <div className="footerblock">
-      <Textarea
+    <>
+      <PromptInput
         onChange={({ detail }) =>
           dispatch({
             type: ChatActionType.SET_MESSAGE_TO_SEND,
@@ -187,32 +130,56 @@ const ChatSendMessage: FC<Props> = ({
           })
         }
         value={messageToSend}
-        autoFocus={true}
-        disabled={sendButtonDisabled}
+        ariaLabel="Default prompt input"
         placeholder="Write a prompt... (Shift + ENTER for new line, ENTER to send)"
-        rows={noRowsMessageBox}
-        onKeyDown={(e) => {
-          if (e.detail.key === "Enter" && !e.detail.shiftKey) {
-            e.preventDefault();
-            handleSendMessage();
-          } else if (e.detail.key === "Enter" && e.detail.shiftKey) {
-            dispatch({ type: ChatActionType.INCREMENT_ROWS });
-          }
+        autoFocus
+        actionButtonAriaLabel="Send message"
+        actionButtonIconName="send"
+        spellcheck
+        disableActionButton={sendButtonDisabled}
+        onAction={({ detail }) => {
+          console.info(detail.value);
+          handleSendMessage();
         }}
-        ref={inputRef}
-        className="chatbar_textinput"
+        secondaryActions={
+          <Box padding={{ left: "xxs", top: "xs" }}>
+            <FileInput
+              variant="icon"
+              accept=".png, .jpeg"
+              multiple={true}
+              value={files}
+              onChange={({ detail }) => {
+                console.info(detail.value);
+                setFiles(detail.value);
+              }}
+            />
+          </Box>
+        }
+        secondaryContent={
+          files.length > 0 && (
+            <FileTokenGroup
+              items={files.map((file) => ({ file }))}
+              onDismiss={({ detail }: { detail: { fileIndex: number } }) =>
+                setFiles(
+                  files.filter((_, index: number) => index !== detail.fileIndex)
+                )
+              }
+              alignment="horizontal"
+              showFileSize={true}
+              showFileLastModified={true}
+              showFileThumbnail={true}
+              i18nStrings={{
+                removeFileAriaLabel: () => "Remove file",
+                limitShowFewer: "Show fewer files",
+                limitShowMore: "Show more files",
+                errorIconAriaLabel: "Error",
+                warningIconAriaLabel: "Warning",
+              }}
+            />
+          )
+        }
       />
-      {fileSelectorButtonContent}
-      <Button
-        iconName="caret-right-filled"
-        loading={sendButtonDisabled}
-        onClick={handleSendMessage}
-        variant="primary"
-        fullWidth={true}
-        className="chatbar_submit"
-      />
-      {memoizedThumbnailList}
-    </div>
+    </>
   );
 };
 
