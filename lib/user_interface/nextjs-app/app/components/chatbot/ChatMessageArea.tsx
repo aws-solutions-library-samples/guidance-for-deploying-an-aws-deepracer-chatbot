@@ -8,6 +8,7 @@ import StatusIndicator from "@cloudscape-design/components/status-indicator";
 import React, { useMemo } from "react";
 import { MessageRole } from "../../API";
 import { MessageWithFiles } from "../../hooks/useChatMessages";
+import MessageRenderer from "./MessageRenderer";
 
 const useFormattedTime = () => {
   return useMemo(() => {
@@ -19,28 +20,6 @@ const useFormattedTime = () => {
     });
   }, []);
 };
-
-interface TextWithLineBreaksProps {
-  children?: string;
-}
-
-const TextWithLineBreaks: React.FC<TextWithLineBreaksProps> = React.memo(
-  ({ children }) => {
-    // Memoize the split operation
-    const lines = useMemo(() => children?.split("\n") ?? [], [children]);
-
-    return (
-      <div>
-        {lines.map((text, index) => (
-          <React.Fragment key={index}>
-            {text}
-            {index < lines.length - 1 && <br />}
-          </React.Fragment>
-        ))}
-      </div>
-    );
-  }
-);
 
 const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
   ({ item }) => {
@@ -83,7 +62,9 @@ const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
             />
           }
         >
-          <TextWithLineBreaks>{item.content?.text ?? ""}</TextWithLineBreaks>
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <MessageRenderer>{item.content?.text ?? ""}</MessageRenderer>
+          </React.Suspense>
         </ChatBubble>
       );
     }
@@ -114,7 +95,9 @@ const ChatMessage: React.FC<{ item: MessageWithFiles }> = React.memo(
         }
       >
         <SpaceBetween size="s">
-          <TextWithLineBreaks>{item.content?.text ?? ""}</TextWithLineBreaks>
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <MessageRenderer>{item.content?.text ?? ""}</MessageRenderer>
+          </React.Suspense>
           {item.files && item.files.length > 0 && (
             <FileTokenGroup
               items={item.files}

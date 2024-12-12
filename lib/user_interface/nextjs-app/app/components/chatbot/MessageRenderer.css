@@ -1,0 +1,41 @@
+.markdown-content {
+  /* Add some basic styling for markdown content */
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-content p {
+  margin: 0.5em 0;
+}
+
+.markdown-content code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.markdown-content pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.markdown-content ul, .markdown-content ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.markdown-content h1, .markdown-content h2, .markdown-content h3, 
+.markdown-content h4, .markdown-content h5, .markdown-content h6 {
+  margin: 0.5em 0;
+  font-weight: 600;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #ddd;
+  margin: 0.5em 0;
+  padding-left: 1em;
+  color: #666;
+}

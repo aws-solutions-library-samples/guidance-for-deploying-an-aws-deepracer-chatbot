@@ -3,7 +3,7 @@ import {
   Grid,
   SpaceBetween,
 } from "@cloudscape-design/components";
-import React, { useMemo, useReducer, useState } from "react";
+import React, { useMemo, useReducer } from "react";
 import {
   ChatActionType,
   chatReducer,
@@ -13,9 +13,6 @@ import styles from "./ChatDefaultsArea.module.css";
 
 const PromptBox: React.FC<{ item: String }> = React.memo(({ item }) => {
   const [chatState, dispatch] = useReducer(chatReducer, initialChatState);
-  const { messageToSend } = chatState;
-  const [copySuccess, setCopySuccess] = useState("");
-  const [copyShow, setCopyShow] = React.useState(false);
 
   function prompt_change(item: String) {
     dispatch({
