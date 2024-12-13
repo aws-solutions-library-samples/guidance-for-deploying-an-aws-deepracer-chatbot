@@ -9,13 +9,6 @@ interface MessageRendererProps {
 
 const MessageRenderer: React.FC<MessageRendererProps> = React.memo(
   ({ text }) => {
-    // Function to normalize text content
-    const normalizeText = (content: string) => {
-      return content
-        .replace(/\s+/g, " ") // Replace multiple spaces with single space
-        .trim(); // Remove leading/trailing whitespace
-    };
-
     return (
       <div className="markdown-content">
         <ReactMarkdown

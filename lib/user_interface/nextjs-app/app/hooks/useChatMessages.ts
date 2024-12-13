@@ -34,9 +34,7 @@ export function useChatMessages() {
         ...existingMessage,
         content: {
           __typename: "ContentBlock",
-          text: `${existingMessage.content?.text || ""} ${
-            message.content?.text || ""
-          }`,
+          text: `${existingMessage.content?.text || ""}${message.content?.text || ""}`,
         },
         files: message.files,
       };
