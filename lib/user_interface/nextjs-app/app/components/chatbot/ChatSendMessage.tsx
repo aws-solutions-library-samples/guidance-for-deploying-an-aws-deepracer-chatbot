@@ -131,6 +131,19 @@ const ChatSendMessage: FC<Props> = ({
           dismissNotification,
         })
       );
+
+      onWaitingReply(false);
+      onNewMessage({
+        __typename: "MessageResponse",
+        chatbotVariant,
+        sessionId,
+        messageId: crypto.randomUUID(),
+        role: MessageRole.assistant,
+        content: {
+          __typename: "ContentBlock",
+          text: "An error occurred while sending the message",
+        },
+      });
     } finally {
       dispatch({
         type: ChatActionType.SET_SEND_BUTTON_DISABLED,
