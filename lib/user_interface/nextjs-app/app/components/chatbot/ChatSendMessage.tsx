@@ -84,7 +84,8 @@ const ChatSendMessage: FC<Props> = ({
         })),
       });
 
-      dispatch({ type: ChatActionType.RESET_MESSAGE_STATE });
+      // clear the prompt input after message been sent
+      dispatch({ type: ChatActionType.SET_MESSAGE_TO_SEND, payload: "" });
       setFiles([]);
 
       const response = (
@@ -178,7 +179,7 @@ const ChatSendMessage: FC<Props> = ({
         actionButtonAriaLabel="Send message"
         actionButtonIconName="send"
         spellcheck
-        disableActionButton={sendButtonDisabled}
+        disabled={sendButtonDisabled}
         onAction={({ detail }) => {
           console.info(detail.value);
           handleSendMessage();
