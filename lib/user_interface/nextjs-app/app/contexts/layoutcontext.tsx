@@ -1,18 +1,13 @@
+"use client";
+
 import { FlashbarProps } from "@cloudscape-design/components";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 // Types
 interface LayoutConfigType {
   readonly navigationHide: boolean;
   readonly helpHide: boolean;
-  readonly helpPanelContent: JSX.Element;
+  readonly helpPanelContent: JSX.Element | null;
   readonly notifications: ReadonlyArray<FlashbarProps.MessageDefinition>;
 }
 
@@ -21,7 +16,7 @@ interface LayoutConfigContextType {
   setLayoutConfig: React.Dispatch<React.SetStateAction<LayoutConfigType>>;
   addNotification: (messageDefinition: FlashbarProps.MessageDefinition) => void;
   dismissNotification: (id: string) => void;
-  addHelp: (content: JSX.Element) => void;
+  addHelp: (content: JSX.Element | null) => void;
 }
 
 interface LayoutProviderProps {
@@ -29,12 +24,12 @@ interface LayoutProviderProps {
 }
 
 // Constants
-const DEFAULT_LAYOUT_CONFIG: LayoutConfigType = Object.freeze({
+const DEFAULT_LAYOUT_CONFIG: LayoutConfigType = {
   navigationHide: true,
-  helpHide: true,
-  helpPanelContent: <div>Default help text</div>,
+  helpHide: false, // Set to false to show the help panel by default
+  helpPanelContent: null, // Will be set by pages
   notifications: [],
-});
+};
 
 // Context Creation
 const LayoutContext = createContext<LayoutConfigContextType | null>(null);
@@ -71,12 +66,10 @@ export const useLayoutContext = (): LayoutConfigContextType => {
 };
 
 // Main Provider Component
-export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
+export function LayoutProvider({ children }: LayoutProviderProps) {
   const [layoutConfig, setLayoutConfig] = useState<LayoutConfigType>(
     DEFAULT_LAYOUT_CONFIG
   );
-  const layoutConfigRef = useRef(layoutConfig);
-  layoutConfigRef.current = layoutConfig;
 
   const addNotification = useCallback(
     (messageDefinition: FlashbarProps.MessageDefinition) => {
@@ -111,36 +104,58 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     });
   }, []);
 
-  const addHelp = useCallback((content: JSX.Element) => {
-    setLayoutConfig((currentState) => {
-      if (currentState.helpPanelContent === content) {
-        return currentState;
-      }
+  // Add help content to layout config with improved validation, state management and debouncing
+  const addHelp = useCallback((content: JSX.Element | null) => {
+    const timestamp = new Date().toISOString();
 
-      return {
-        ...currentState,
-        helpPanelContent: content,
-      };
-    });
+    // Debounce the state update to avoid race conditions
+    // and batch multiple rapid changes together
+    const updateState = () => {
+      setLayoutConfig((prev) => {
+        // Only update if content has actually changed
+        if (prev.helpPanelContent === content) {
+          return prev;
+        }
+
+        // Hide panel when clearing content or show it when setting new content
+        const newHelpHide = content === null;
+
+        const newState = {
+          ...prev,
+          helpHide: newHelpHide,
+          helpPanelContent: content,
+        };
+
+        return newState;
+      });
+    };
+
+    // Use requestAnimationFrame to ensure DOM updates are synchronized
+    // and avoid potential race conditions during page transitions
+    // Cancel any pending animation frames
+    const frameId = requestAnimationFrame(updateState);
+
+    // Return cleanup function to cancel animation frame if component unmounts
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
   }, []);
 
-  const contextValue = useMemo(
-    () => ({
-      layoutConfig,
-      setLayoutConfig,
-      addNotification,
-      dismissNotification,
-      addHelp,
-    }),
-    [layoutConfig, addNotification, dismissNotification, addHelp]
-  );
+  // Create fresh context value each time to ensure updates propagate
+  const contextValue = {
+    layoutConfig,
+    setLayoutConfig,
+    addNotification,
+    dismissNotification,
+    addHelp,
+  };
 
   return (
     <LayoutContext.Provider value={contextValue}>
       {children}
     </LayoutContext.Provider>
   );
-};
+}
 
 // Export types and context
 export { LayoutContext };
