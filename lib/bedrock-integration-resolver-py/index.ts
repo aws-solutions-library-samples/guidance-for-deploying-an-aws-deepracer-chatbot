@@ -101,7 +101,7 @@ export class BedrockIntegrationPyResolver extends Construct {
 
     modelStorageTable.grantReadData(lambdaFunction);
 
-    const datasource = new appsync.LambdaDataSource(
+    const bedrockLambdaDataSource = new appsync.LambdaDataSource(
       this,
       `BedrockDataSource${environment}`,
       {
@@ -110,13 +110,30 @@ export class BedrockIntegrationPyResolver extends Construct {
       }
     );
 
-    const fields = [{ typeName: "Mutation", fieldName: "sendMessage" }];
-    fields.forEach(({ typeName, fieldName }) =>
-      datasource.createResolver(`${typeName}${fieldName}Resolver`, {
-        typeName,
-        fieldName,
-      })
-    );
+    bedrockLambdaDataSource.createResolver("sendMessageResolver", {
+      typeName: "Mutation",
+      fieldName: "sendMessage",
+      requestMappingTemplate: appsync.MappingTemplate.fromString(
+        `{
+            "version": "2017-02-28",
+            "operation": "Invoke",
+            "invocationType": "Event",
+            "payload": {
+              "arguments": $utils.toJson($context.arguments),
+              "identity": $utils.toJson($context.identity),
+              "info": {
+                  "fieldName": $utils.toJson($context.info.fieldName),
+                  "parentTypeName": $utils.toJson($context.info.parentTypeName),
+                  "selectionSetList": $utils.toJson($context.info.selectionSetList),
+                  "variables": $utils.toJson($context.info.variables)
+              }
+          }
+        }`
+      ),
+      responseMappingTemplate: appsync.MappingTemplate.fromString(
+        "$util.toJson($context.result)"
+      ),
+    });
 
     // only allow a user to subscribe to it´s own conversation
     apiNoneDataSource.createResolver(

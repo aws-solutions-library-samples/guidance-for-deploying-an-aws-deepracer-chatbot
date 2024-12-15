@@ -178,7 +178,7 @@ type Mutation {
     chatbotVariant: ChatbotVariant!
     sessionId: ID
     content: [ContentBlockInput!]!
-  ): MessageReceipt! @aws_cognito_user_pools(cognito_groups: ["Users"])
+  ): MessageReceipt @aws_cognito_user_pools(cognito_groups: ["Users"])
 
   # Streams a response from the chatbot, simulating Bedrock's ConverseStream API
   streamResponse(

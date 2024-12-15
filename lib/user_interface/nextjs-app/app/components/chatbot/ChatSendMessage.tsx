@@ -99,7 +99,8 @@ const ChatSendMessage: FC<Props> = ({
         })
       ).data.sendMessage as MessageReceipt;
 
-      if (response.status === "success") {
+      // With Event invocation, response will be null, which indicates success
+      if (response === null) {
         console.log("Message sent successfully");
       } else {
         console.error("Error sending message:", response.errorMessage);
