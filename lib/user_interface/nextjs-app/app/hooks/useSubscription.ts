@@ -18,7 +18,6 @@ interface UseSubscriptionResult {
 
 const useSubscription = (
   userId: string,
-  sessionId: string,
   onNewMessage: (message: MessageResponse, thumbnails: string[]) => void,
   onWaitingReply?: (waiting: boolean) => void
 ): UseSubscriptionResult => {

@@ -1,27 +1,17 @@
 "use client";
 
 import { HelpPanel } from "@cloudscape-design/components";
-import { FC } from "react";
 import { useLayoutContext } from "../../contexts/layoutcontext";
 
-interface HelpPanelContentProps {
-  footerContent?: React.ReactNode;
-}
-
-export const HelpPanelContent: FC<HelpPanelContentProps> = ({
-  footerContent = null,
-}) => {
+function HelpPanelContent() {
   const { layoutConfig } = useLayoutContext();
 
-  if (!layoutConfig?.helpPanelContent) {
-    return null;
-  }
-
   return (
-    <HelpPanel header="Help" footer={footerContent}>
-      <div className="help-panel-content">{layoutConfig.helpPanelContent}</div>
+    <HelpPanel header={<h2>Help</h2>}>
+      {layoutConfig?.helpPanelContent || <p>No help content available</p>}
     </HelpPanel>
   );
-};
+}
 
+// Do not memoize - we want it to re-render whenever needed
 export default HelpPanelContent;

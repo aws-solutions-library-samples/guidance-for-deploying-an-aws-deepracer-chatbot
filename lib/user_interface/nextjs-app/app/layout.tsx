@@ -52,7 +52,6 @@ interface ChildrenProps {
 // Memoized components to prevent unnecessary re-renders
 const MemoizedSideNavigation = React.memo(SideNavigationWrapper);
 const MemoizedBreadcrumbs = React.memo(Breadcrumbs);
-const MemoizedHelpPanelContent = React.memo(HelpPanelContent);
 
 /**
  * NotificationsSection component handles the display of notification messages
@@ -83,7 +82,7 @@ const LayoutContent: React.FC<ChildrenProps> = ({ children }) => {
       content={children}
       contentType="table"
       toolsHide={layoutConfig.helpHide}
-      tools={<MemoizedHelpPanelContent />}
+      tools={<HelpPanelContent />}
       navigationHide={layoutConfig.navigationHide}
     />
   );
