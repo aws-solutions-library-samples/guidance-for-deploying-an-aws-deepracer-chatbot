@@ -64,7 +64,10 @@ class StreamCallbackHandler:
             "userId": self.user_id,
         }
 
-        logger.info(f"Sending mutation, variables: {variables}")
+        logger.info(
+            f"Sending StreamResponse mutation",
+            extra={"variables": variables, "MUTATION_QUERY": MUTATION_QUERY},
+        )
 
         try:
             response = appsync_helpers.send_mutation(MUTATION_QUERY, variables)

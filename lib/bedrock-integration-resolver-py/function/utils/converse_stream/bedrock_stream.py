@@ -67,6 +67,8 @@ class BedrockStream:
         messages: List[Dict],
         system_prompt: Optional[str] = None,
         tool_list: Optional[List[Dict]] = None,
+        temperature: int = 0,
+        max_tokens: int = 4096,
     ) -> Generator[Dict, None, None]:
         """
         Call the Bedrock model to generate a chat response using the converse_stream API and yield parsed events.
@@ -75,17 +77,23 @@ class BedrockStream:
             messages (List[Dict]): A list of message dictionaries.
             system_prompt (str, Optional): The system prompt to use for chat generation.
             tool_list (List[Dict], optional): A list of tools to use for chat generation.
+            temperature (int, optional): The temperature setting 0-1,
+            max_tokens (int, optional): The maximum number of tokens the LLM can generate in the response.
 
         Yields:
             Dict: Parsed events from the stream.
         """
 
         converse_kwargs = self._prepare_converse_kwargs(
-            messages, system_prompt, tool_list
+            messages=messages,
+            system_prompt=system_prompt,
+            tool_list=tool_list,
+            temperature=temperature,
+            max_tokens=max_tokens,
         )
 
         try:
-            logger.debug(
+            logger.info(
                 "Calling Bedrock model with stream output",
                 extra={"body": converse_kwargs},
             )
@@ -103,6 +111,8 @@ class BedrockStream:
         messages: List[Dict],
         system_prompt: Optional[str],
         tool_list: Optional[List[Dict]],
+        temperature: int = 0,
+        max_tokens: int = 4096,
     ) -> Dict:
         """
         Prepare the keyword arguments for the converse_stream API call.
@@ -118,7 +128,7 @@ class BedrockStream:
         converse_kwargs = {
             "modelId": self.model_id,
             "messages": messages,
-            "inferenceConfig": {"maxTokens": 1500, "temperature": 0},
+            "inferenceConfig": {"maxTokens": max_tokens, "temperature": temperature},
         }
 
         if system_prompt:

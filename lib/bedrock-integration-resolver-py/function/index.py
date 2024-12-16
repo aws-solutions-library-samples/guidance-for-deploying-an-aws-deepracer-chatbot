@@ -11,6 +11,7 @@ from aws_lambda_powertools.event_handler import AppSyncResolver
 from aws_lambda_powertools.logging import correlation_paths
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from knowledge_base.vector_db import FaissVectorStore
+from track_manager import TrackManager
 from utils.chat_history import ChatHistory
 from utils.converse_stream import BedrockStream, MessageProcessor, ToolProcessor
 from utils.embedding_models import TitanEmbeddings
@@ -54,9 +55,11 @@ vector_store_kb = FaissVectorStore.load(
 # Initiate the reward function examples vector store
 peristant_directory_faiss_reward_functions = "knowledge_base/reward_function_examples"
 vector_store_reward_functions = FaissVectorStore.load(
-    directory_path=persistant_directory_faiss_knowledge_base,
+    directory_path=peristant_directory_faiss_reward_functions,
     embedding_function=embeddings,
 )
+
+track_manager = TrackManager()
 
 
 # Entry point for the lambda function
@@ -145,11 +148,30 @@ def sendMessage(chatbotVariant: str, sessionId: str, content):
 
         elif chatbot_variant == "rewardFunctionGeneration":
 
+            tool_processor = ToolProcessor()
+
+            tool_processor.register_tool(
+                name="get_deepracer_track",
+                description="Get information about a DeepRacer track including it´s waypoints and the coordinates for the optimal race line. (if available)",
+                input_schema={
+                    "type": "object",
+                    "properties": {
+                        "track_name": {
+                            "type": "string",
+                            "description": "The name of the DeepRacer track to fetch info for",
+                        }
+                    },
+                    "required": ["track_name"],
+                },
+                func=track_manager.get_track_by_name,
+            )
+
             # Call the LLM and process the Bedrock stream of events
             ai_message = reward_function_generation_chain.invoke(
                 bedrock_model=bedrock_stream_model,
                 message_processor=message_processor,
                 chat_history=conversation,
+                tool_processor=tool_processor,
                 knowledge_base=vector_store_kb,
                 reward_function_examples_db=vector_store_reward_functions,
                 stream_callback=appsync_callback_handler,
@@ -188,6 +210,22 @@ def sendMessage(chatbotVariant: str, sessionId: str, content):
                     "required": [],
                 },
                 func=list_deepracer_models,
+            )
+
+            tool_processor.register_tool(
+                name="get_deepracer_track",
+                description="Get information about a DeepRacer track and it´s corresponding waypoints (if available)",
+                input_schema={
+                    "type": "object",
+                    "properties": {
+                        "track_name": {
+                            "type": "string",
+                            "description": "The name of the DeepRacer track to fetch info for",
+                        }
+                    },
+                    "required": ["track_name"],
+                },
+                func=track_manager.get_track_by_name,
             )
 
             # Call the LLM and process the Bedrock stream of events and tool calls (if any)

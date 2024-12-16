@@ -93,7 +93,6 @@ class MessageProcessor:
         logger.debug("Starting to process stream events")
         for event in events:
             logger.debug(f"Processing event: {event}")
-            print(event)
             event_type = self._get_event_type(event)
             if event_type:
                 self._handle_event(event_type, event, ai_message, stream_callback)
