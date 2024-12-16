@@ -7,33 +7,13 @@ import boto3
 from termcolor import colored
 import os
 import argparse
-import subprocess
 import time
 
 def random_password():
-    # Generate random character code between 35 and 47
     char_code = random.randint(35, 47)
-    # Create random strings using ascii letters and digits
     part1 = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
     part2 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return part1 + chr(char_code) + part2
-
-def execute_command(cmd, description):
-    print(f"\nExecuting: {description}")
-    try:
-        if isinstance(cmd, list):
-            result = subprocess.run(cmd, capture_output=True, text=True)
-        else:
-            result = subprocess.run(cmd.split(), capture_output=True, text=True)
-        if result.returncode == 0:
-            print(colored("Success!", "green"))
-            return True
-        else:
-            print(colored(f"Error: {result.stderr}", "red"))
-            return False
-    except Exception as e:
-        print(colored(f"Error executing command: {e}", "red"))
-        return False
 
 # Set up command line argument parsing
 parser = argparse.ArgumentParser(description='Generate Cognito user commands')
@@ -60,43 +40,63 @@ chatbot_url_output = ""
 # Process outputs
 for key, value in outputs.items():
     if "-backend-" in key:
-        # backend - do nothing
         continue
     elif "-" in key:
-        # main
         for inner_key, inner_value in value.items():
             if inner_key.startswith("WebsiteUserInterfaceDomainName"):
                 chatbot_url_output = f"DeepRacer Chatbot URL: {colored(inner_value, 'blue')}"
             elif inner_key.startswith("ExportsOutputRefAuthenticationUserPool"):
-                # Create the command strings with the actual email address
-                create_user_cmd = f'aws cognito-idp admin-create-user --user-pool-id {inner_value} --username {email_address}'
-                add_to_group_cmd = f'aws cognito-idp admin-add-user-to-group --user-pool-id {inner_value} --group-name Users --username {email_address}'
+                user_pool_id = inner_value
+                cognito_client = boto3.client('cognito-idp', region_name='us-west-2')
                 
-                # Handle set-password command as a list to properly handle the password string
-                set_password_cmd = [
-                    'aws', 'cognito-idp', 'admin-set-user-password',
-                    '--user-pool-id', inner_value,
-                    '--username', email_address,
-                    '--password', password,
-                    '--permanent'
-                ]
-
-                # Execute the commands in sequence
                 print("\nStarting user creation process...")
                 
-                if execute_command(create_user_cmd, "Creating user"):
-                    # Wait a moment for the user to be created
-                    time.sleep(2)
-                    
-                    if execute_command(add_to_group_cmd, "Adding user to group"):
-                        time.sleep(1)
-                        
-                        if execute_command(set_password_cmd, "Setting user password"):
-                            print('')
-                            print(password_output)
-
-                else:
-                    print(colored("✗ Failed to create user", "red"))
+                # Step 1: Create user
+                print("\nExecuting: Creating user")
+                try:
+                    cognito_client.admin_create_user(
+                        UserPoolId=user_pool_id,
+                        Username=email_address,
+                        MessageAction='SUPPRESS'  # Suppress sending the temporary password
+                    )
+                    print(colored("Success!", "green"))
+                except cognito_client.exceptions.UsernameExistsException:
+                    print(colored("Note: User already exists", "yellow"))
+                except Exception as e:
+                    print(colored(f"✗ Error creating user: {str(e)}", "red"))
+                    exit(1)  # Exit if we can't create/verify user
+                
+                time.sleep(2)  # Wait for user creation to propagate
+                
+                # Step 2: Add user to group
+                print("\nExecuting: Adding user to group")
+                try:
+                    cognito_client.admin_add_user_to_group(
+                        UserPoolId=user_pool_id,
+                        Username=email_address,
+                        GroupName='Users'
+                    )
+                    print(colored("Success!", "green"))
+                except Exception as e:
+                    print(colored(f"✗ Error adding user to group: {str(e)}", "red"))
+                    exit(1)  # Exit if we can't add to group
+                
+                time.sleep(1)
+                
+                # Step 3: Set permanent password
+                print("\nExecuting: Setting user password")
+                try:
+                    cognito_client.admin_set_user_password(
+                        UserPoolId=user_pool_id,
+                        Username=email_address,
+                        Password=password,
+                        Permanent=True
+                    )
+                    print(colored("Success!", "green"))
+                    print('')
+                    print(password_output)
+                except Exception as e:
+                    print(colored(f"✗ Error setting password: {str(e)}", "red"))
+                    exit(1)  # Exit if we can't set password
 
 print()
-# print(chatbot_url_output)
