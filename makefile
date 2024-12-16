@@ -64,4 +64,5 @@ backend.destroy:	## Deploy via cdk
 	npx cdk destroy --all -c config=$(config) --force
 
 print.info:
-	python ./scripts_n_helpers/printEndOfMakeInfo.py
+	pushd ./scripts_n_helpers/ && npm install && popd
+	node ./scripts_n_helpers/printEndOfMakeInfo.mjs

@@ -45,6 +45,7 @@ for key, value in outputs.items():
         for inner_key, inner_value in value.items():
             if inner_key.startswith("WebsiteUserInterfaceDomainName"):
                 chatbot_url_output = f"DeepRacer Chatbot URL: {colored(inner_value, 'blue')}"
+                print(chatbot_url_output)
             elif inner_key.startswith("ExportsOutputRefAuthenticationUserPool"):
                 user_pool_id = inner_value
                 cognito_client = boto3.client('cognito-idp', region_name='us-west-2')
