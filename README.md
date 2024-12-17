@@ -89,11 +89,11 @@ This deployment has been tested in us-east-1 (N.Virginia) and us-west-2 (Oregon)
 
 1. Clone the repo:
    ```
-   git clone <placeholder_url>
+   git clone https://github.com/aws-solutions-library-samples/guidance-for-a-chatbot-on-aws-deepracer.git
    ```
 2. Change to the root of the project:
    ```
-   cd <project_directory>
+   cd guidance-for-a-chatbot-on-aws-deepracer
    ```
 3. Install dependencies:
    ```
