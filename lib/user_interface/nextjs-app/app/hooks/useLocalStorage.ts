@@ -60,7 +60,8 @@ const loadFromStorage = (
     return item ? options.deserializer!(item) : undefined;
   } catch (error) {
     console.warn(
-      `⚠️ Error reading "${key}" from localStorage. The stored value might be corrupted.`,
+      "⚠️ Error reading from localStorage. The stored value might be corrupted.",
+      { key },
       error
     );
     return undefined;
