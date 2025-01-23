@@ -59,10 +59,14 @@ const loadFromStorage = (
     const item = localStorage.getItem(key);
     return item ? options.deserializer!(item) : undefined;
   } catch (error) {
+    // Sanitize the key before logging
+    const sanitizedKey = String(key).replace(/[\r\n%]/g, '');
+    
+    // Log with sanitized input and minimal error information
     console.warn(
-      "⚠️ Error reading from localStorage. The stored value might be corrupted.",
-      { key },
-      error
+      "⚠️ Error reading from localStorage.",
+      { key: sanitizedKey },
+      error instanceof Error ? error.message : 'Unknown error'
     );
     return undefined;
   }
