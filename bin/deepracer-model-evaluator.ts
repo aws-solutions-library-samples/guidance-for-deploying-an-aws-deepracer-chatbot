@@ -49,7 +49,7 @@ const mainStack = new DeepRacerModelEvaluatorMainStack(
   mainStackName,
   {
     env: env,
-    description: "Guidance for AWS DeepRacer Chatbot (SOXXXXash)", // TODO add guidance number
+    description: "Guidance for AWS DeepRacer Chatbot (SO9567)",
   },
   buildConfig
 );
@@ -69,7 +69,7 @@ if (mainOnly === "true") {
       logsBucket: mainStack.logsBucket,
       webSiteDistribution: mainStack.websiteDistribution,
       env: env,
-      description: "Guidance for AWS DeepRacer Chatbot (SOXXXXash)", // TODO add guidance number
+      description: "Guidance for AWS DeepRacer Chatbot (SO9567)",
     },
     buildConfig
   );
